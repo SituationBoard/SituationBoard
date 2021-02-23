@@ -1,0 +1,236 @@
+#!/usr/bin/env bash
+
+# SituationBoard - Alarm Display for Fire Departments
+# Copyright (C) 2017-2021 Sebastian Maier
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+###################################################################
+#  Bash Completion
+###################################################################
+_sbctl_completions() {
+  local debug_cmds="runf runb run kill frontend test dalarm dbinary dsetting"
+  local maintenance_cmds="update version backup export import rimport start stop restart status enable disable log"
+  local setup_cmds="install ainstall reinstall uninstall remove"
+  local cmds="$debug_cmds $maintenance_cmds $setup_cmds help usage"
+  local tests="pylint mypy tidy eslint shellcheck pytest runtest ALL"
+  local features="base gpio sms autostart test ALL"
+
+  local cur prev words cword
+  _init_completion -n : || return
+
+  if [[ ${cword} -eq 1 ]]; then
+    # command
+    mapfile -t COMPREPLY < <(compgen -W "$cmds" -- "${cur}")
+    compopt +o nospace
+  else
+    # parameters
+    local cmd=${words[1]}
+    local arg=${cword}-1
+    case $cmd in
+      backup)
+        [[ $arg -ne 1 ]] && return
+        local userhost path
+        _expand || return
+        if [[ "$cur" == *":"* ]]; then
+          _xfunc scp _scp_remote_files -d; return
+        fi
+        [[ "$cur" == @(*/|[.~])* ]] || _known_hosts_real -c -a -- "$cur"
+        _xfunc scp _scp_local_files -d
+        ;;
+      export|import|rimport)
+        [[ $arg -ne 1 ]] && return
+        _filedir
+        ;;
+      test)
+        mapfile -t COMPREPLY < <(compgen -W "$tests" -- "${cur}") # test case or validation
+        compopt +o nospace
+        ;;
+      ainstall)
+        mapfile -t COMPREPLY < <(compgen -W "$features" -- "${cur}") # setup features
+        compopt +o nospace
+        ;;
+    esac
+  fi
+}
+
+if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+  # script is being sourced
+  # -> initialize bash completion for sbctl and return early
+  complete -F _sbctl_completions -o nospace sbctl
+  return
+fi
+
+###################################################################
+#  Includes and Definitions
+###################################################################
+#set -o errexit  # exit script if a command fails (-e)
+#set -o xtrace   # print each command for debugging (-x)
+set -o nounset   # do not allow unset variables (-u)
+set -o pipefail  # fail if any command in a pipeline fails
+
+# determine script location
+readonly SCRIPT_FILENAME=$(readlink -f "${BASH_SOURCE[0]}")
+readonly SCRIPT_PATH=$(dirname "$SCRIPT_FILENAME")
+# shellcheck source=misc/sbctl/utils.sh
+source "$SCRIPT_PATH/misc/sbctl/utils.sh"
+# shellcheck source=misc/sbctl/core.sh
+source "$SCRIPT_PATH/misc/sbctl/core.sh"
+# shellcheck source=misc/sbctl/debug.sh
+source "$SCRIPT_PATH/misc/sbctl/debug.sh"
+# shellcheck source=misc/sbctl/maintenance.sh
+source "$SCRIPT_PATH/misc/sbctl/maintenance.sh"
+# shellcheck source=misc/sbctl/setup.sh
+source "$SCRIPT_PATH/misc/sbctl/setup.sh"
+
+###################################################################
+#  Usage Information
+###################################################################
+print_usage() {
+  local binary
+  binary=$(basename "$0")
+  echo -e "${OUTPUT_BOLD}Usage: $binary <COMMAND> [PARAMETERS]${OUTPUT_RESET}"
+  echo ""
+  echo " This tool controls the SituationBoard alarm display and"
+  echo " allows easy maintenance, debugging and installation."
+  echo ""
+  echo -e " ${OUTPUT_UNDER}Maintenance:${OUTPUT_RESET}"
+  echo "  update               update to latest version of SituationBoard (via GIT)"
+  echo "  version              show version information"
+  echo "  backup [U@H:]<P>     backup data and config to a local or remote directory"
+  echo "  export <file>        export data to CSV file"
+  echo "  import <file>        import data from CSV file"
+  echo "  rimport <file>       import data from CSV file after resetting the database"
+  echo "  start                start the SituationBoard service (for production use)"
+  echo "  stop                 stop the SituationBoard service"
+  echo "  restart              restart the SituationBoard service"
+  echo "  status               request the status of the SituationBoard service"
+  echo "  enable               enable the SituationBoard service"
+  echo "  disable              disable the SituationBoard service"
+  echo "  log                  show the log of the SituationBoard service"
+  echo ""
+  echo -e " ${OUTPUT_UNDER}Debugging and Testing:${OUTPUT_RESET}"
+  echo "  runf [params...]     start SituationBoard as a foreground process (for debugging purposes)"
+  echo "  runb [params...]     start SituationBoard as a background process (for debugging purposes)"
+  echo "  run [params...]      alias for runb"
+  echo "  kill                 kill SituationBoard (running in debugging mode)"
+  echo "  frontend             open a browser with the frontend"
+  echo "  test [tests...]      run the specified test cases or validations:"
+  echo "                       pylint, mypy, tidy, eslint, shellcheck, pytest, runtest or ALL"
+  echo "  dalarm               send a text alarm to the dummy source (for debugging purposes)"
+  echo "  dbinary              send a binary alarm to the dummy source (for debugging purposes)"
+  echo "  dsetting             send a settings message to the dummy source (for debugging purposes)"
+  echo ""
+  echo -e " ${OUTPUT_UNDER}Setup (requires root privileges):${OUTPUT_RESET}"
+  echo "  install              perform an interactive installation of all dependencies and required files"
+  echo "  ainstall [features]  perform an automatic installation of the specified features (e.g. for CI):"
+  echo "                       base, gpio, sms, autostart, test or ALL"
+  echo "  reinstall            reinstall an existing installation (e.g. after an update)"
+  echo "  uninstall            uninstall an existing installation (but keep config file and database)"
+  echo "  remove               alias for uninstall"
+  echo ""
+  echo -e " ${OUTPUT_UNDER}Other Commands:${OUTPUT_RESET}"
+  echo "  help                 show this help message / usage information"
+  echo "  usage                alias for help"
+  echo ""
+}
+
+###################################################################
+#  Command Line Interface
+###################################################################
+COMMAND=""
+if [[ $# -ge 1 ]]; then
+  COMMAND=$1
+  shift
+fi
+
+case "$COMMAND" in
+# Debug / Test
+  runf)
+    core_require_installed; core_kill
+    debug_runf "$@"; exit $? ;;
+  runb|run)
+    core_require_installed; core_kill
+    debug_runb "$@"; exit $? ;;
+  kill)
+    core_require_installed; require_params $# 0
+    debug_kill; exit $? ;;
+  frontend)
+    core_require_installed; require_params $# 0
+    debug_frontend regular; exit $? ;;
+  ffrontend) # hidden command for reliable autostart
+    core_require_installed $F_AUTOSTART; require_params $# 0
+    debug_frontend fullscreen; exit $? ;;
+  test) # test names (default: all tests)
+    core_require_installed $F_TEST; core_kill
+    debug_test "$@"; exit $? ;;
+  dalarm)
+    core_require_installed; require_params $# 0
+    debug_dummy_signal $DUMMY_ALARM; exit $? ;;
+  dbinary)
+    core_require_installed; require_params $# 0
+    debug_dummy_signal $DUMMY_BINARY; exit $? ;;
+  dsetting)
+    core_require_installed; require_params $# 0
+    debug_dummy_signal $DUMMY_SETTING; exit $? ;;
+
+# Maintenance
+  update)
+    core_require_installed; require_params $# 0
+    maintenance_update; exit $? ;;
+  backup) # path (or host and path)
+    core_require_installed; require_params $# 1
+    maintenance_backup "$1"; exit $? ;;
+  export) # filename
+    core_require_installed; require_params $# 1
+    maintenance_export "$1"; exit $? ;;
+  import|rimport) # filename
+    core_require_installed; require_params $# 1
+    maintenance_import "$COMMAND" "$1"; exit $? ;;
+  start|stop|status|restart|enable|disable)
+    core_require_installed $F_AUTOSTART; require_params $# 0
+    maintenance_service_operation "$COMMAND"; exit $? ;;
+  log)
+    core_require_installed $F_AUTOSTART; require_params $# 0
+    maintenance_service_show_log; exit $? ;;
+  version)
+    require_params $# 0
+    maintenance_show_version; exit $? ;;
+
+# Setup
+  install)
+    require_params $# 0; require_sudo "$COMMAND" "$*"
+    setup_install; exit $? ;;
+  ainstall) # features (default: base only)
+    require_sudo "$COMMAND" "$*"
+    setup_ainstall "$@"; exit $? ;;
+  reinstall)
+    require_params $# 0; require_sudo "$COMMAND" "$*"
+    setup_reinstall; exit $? ;;
+  uninstall|remove)
+    require_params $# 0; require_sudo "$COMMAND" "$*"
+    setup_uninstall; exit $? ;;
+
+# Other commands
+  help|usage)
+    require_params $# 0
+    print_usage; exit 0 ;;
+  *)
+    if [[ "$COMMAND" == "" ]]; then
+      echo_error "Missing command!\n"
+    else
+      echo_error "Invalid command: $COMMAND\n"
+    fi
+    print_usage; exit 1 ;;
+esac

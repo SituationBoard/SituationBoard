@@ -1,0 +1,16 @@
+situationboard.log
+situationboard.conf
+situationboard.csv
+situationboard.sqlite
+frontend/data/calendar.ics
+frontend/data/calendar.ics.tmp
+frontend/node_modules
+frontend/package-lock.json
+*.pyc
+.idea
+.coverage
+.temp
+.mypy_cache
+.installed
+alarm.txt
+venv

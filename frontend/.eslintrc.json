@@ -1,0 +1,26 @@
+{
+    "extends": "eslint:recommended",
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "jquery": true
+    },
+    "plugins": [
+        "html"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 11
+    },
+    "settings": {
+        "html/html-extensions": [".html"]
+    },
+    "rules": {
+        "no-unused-vars": ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": false }],
+        "prefer-const": ["error", { "destructuring": "any", "ignoreReadBeforeAssign": false }],
+        "no-var": "error",
+        "semi": "error"
+    }
+}

@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=SituationBoard Frontend
+Comment=Open SituationBoard frontend in browser
+Exec=sbctl ffrontend
+Icon=
+Type=Application

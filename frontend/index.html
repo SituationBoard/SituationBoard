@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!--
+SituationBoard - Alarm Display for Fire Departments
+Copyright (C) 2017-2021 Sebastian Maier
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta name="keywords" content="SituationBoard">
+  <meta name="rights" content="Copyright © 2017-2021 Sebastian Maier">
+  <meta name="description" content="SituationBoard - Alarm Display for Fire Departments">
+  <meta name="author" content="Sebastian Maier">
+  <title>SituationBoard</title>
+  <link href="css/situationboard.css" rel="stylesheet">
+  <link href="css/view/splash.css" rel="stylesheet">
+  <link href="css/view/standby.css" rel="stylesheet">
+  <link href="css/view/alarm.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Splash View -->
+  <div class="view splashview" id="splashview">
+    <div class="splash_info_container">
+      <div class="splash_info_list">
+        <div class="app_name" id="app_name">SituationBoard</div>
+        <div class="app_description" id="app_description">&nbsp;</div>
+        <div class="app_flip_logo">
+          <img class="app_logo app_logo_front" src="img/logo.png" alt="">
+          <img class="app_logo app_logo_back" src="img/logo_bg.png" alt="">
+        </div>
+        <div class="app_version" id="app_version">&nbsp;</div>
+        <a class="app_link" id="app_link" href="https://github.com/SituationBoard/SituationBoard" target="_blank">
+          <div class="app_license">Open Source Software (AGPLv3)</div>
+          <div class="app_url">github.com/SituationBoard/SituationBoard</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Standby View -->
+  <div class="view standbyview" id="standbyview">
+    <div class="top header" id="header">Header</div>
+    <div class="top news" id="news">News</div>
+    <div class="standby_column_view">
+      <!-- left column -->
+      <div class="column left info_list">
+        <div class="info_left" id="info_left">
+          <ul><li class="statsbox" id="statsbox">
+            <table>
+              <tr>
+                <th id="statsTotal"></th>
+                <th id="statsYear"></th>
+                <th id="statsMonth"></th>
+                <th id="statsToday"></th>
+              </tr>
+              <tr>
+                <td id="statsEventsTotal"></td>
+                <td id="statsEventsYear"></td>
+                <td id="statsEventsMonth"></td>
+                <td id="statsEventsToday"></td>
+              </tr>
+            </table>
+          </li></ul>
+        </div>
+        <div class="alarmevents" id="alarmevents"></div>
+      </div>
+      <!-- right column -->
+      <div class="column right info_list">
+        <div class="info_right" id="info_right">
+          <ul><li class="clockbox" id="clockbox">
+            <table>
+              <tr><th id="clocktime"></th></tr>
+              <tr><td id="clockdate"></td></tr>
+            </table>
+          </li></ul>
+        </div>
+        <div class="calendarevents" id="calendarevents"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alarm View -->
+  <div class="view alarmview" id="alarmview">
+    <div class="alarm_column_view">
+      <!-- left column -->
+      <div class="column left" id="alarminfo">
+        <div class="alarminfo event" id="event"></div>
+        <div class="alarminfo_small eventdetails" id="eventdetails"></div>
+        <div class="alarminfo location" id="location"></div>
+        <div class="alarminfo locationdetails" id="locationdetails"></div>
+        <div class="alarminfo_small comment" id="comment"></div>
+        <div class="alarminfo raw_fallback" id="raw_fallback"></div>
+        <div class="time_details">
+          <div class="alarminfo alarmtime" id="alarmtime"><br /></div>
+          <div class="alarminfo alarmduration" id="alarmduration"></div>
+        </div>
+      </div>
+      <!-- right column -->
+      <div class="column right" id="alarmmaps">
+        <div class="map" id="alarmroutemap"></div>
+        <div class="map" id="alarmlocationmap"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer id="statusbar">
+    <div class="sbstatus" id="sbstatus"></div>
+    <div class="sbtime" id="sbtime"></div>
+  </footer>
+
+  <!-- Load JavaScript ... -->
+  <!-- ================================================== -->
+  <!-- External (NPM) -->
+  <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="node_modules/socket.io-client/dist/socket.io.js"></script>
+  <script type="text/javascript" src="node_modules/moment/min/moment.min.js"></script>
+  <script type="text/javascript" src="node_modules/ical/ical.js"></script>
+  <!-- SituationBoard Frontend -->
+  <script type="module" src="js/situationboard.js"></script>
+</body>
+</html>

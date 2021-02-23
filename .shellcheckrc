@@ -1,0 +1,8 @@
+# Look for 'source'd files relative to the checked script
+source-path=SCRIPTDIR/setup
+
+# Turn on warnings for unassigned uppercase variables
+enable=check-unassigned-uppercase
+
+# Allow unused variables
+disable=SC2034

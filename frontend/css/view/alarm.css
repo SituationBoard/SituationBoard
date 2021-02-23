@@ -1,0 +1,107 @@
+/*
+SituationBoard - Alarm Display for Fire Departments
+Copyright (C) 2017-2021 Sebastian Maier
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+/* Alarm View */
+
+.alarmview { display: none; }
+
+.alarm_column_view {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.alarm_column_view .column {
+  display: inline-flex;
+  flex-direction: column;
+}
+.alarm_column_view .column.left { flex: 1; }
+.alarm_column_view .column.right { flex: 0 0 40%; }
+
+.alarmview .alarminfo {
+  padding: 0.3vw;
+  padding-left: 0.8vw;
+  padding-right: 0.8vw;
+  font-size: 5.0vw;
+}
+
+.alarmview .alarminfo_small {
+  padding: 0.3vw;
+  padding-left: 0.8vw;
+  padding-right: 0.8vw;
+  font-size: 3.5vw;
+}
+
+.alarmview .maps_visible .alarminfo { font-size: 4.5vw; }
+.alarmview .maps_visible .alarminfo_small { font-size: 3.0vw; }
+
+.event           { background-color: rgb(210, 38, 43); }
+.eventdetails    { background-color: rgb(210, 38, 43); }
+.location        { background-color: rgb(180, 180, 180); }
+.locationdetails { background-color: rgb(180, 180, 180); }
+.comment         { background-color: rgb(108, 156, 210); white-space: pre; }
+.raw_fallback    { background-color: rgb(210, 38, 43); white-space: pre; }
+
+.event:empty           { display: none; }
+.eventdetails:empty    { display: none; }
+.location:empty        { display: none; }
+.locationdetails:empty { display: none; }
+.comment:empty         { display: none; }
+.raw_fallback:empty    { display: none; }
+
+.time_details {
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  display: flex;
+}
+
+.time_details div {
+  width: 50%;
+  overflow: hidden;
+}
+
+.time_details .alarmtime {
+  width: 50%;
+  float: left;
+  text-align: left;
+  font-size: 3vw;
+  white-space: pre;
+}
+
+.time_details .alarmduration {
+  width: 50%;
+  float: right;
+  text-align: right;
+  font-size: 6vw;
+}
+
+.maps_visible .time_details .alarmtime { font-size: 2.5vw; }
+.maps_visible .time_details .alarmduration { font-size: 5vw; }
+
+/* Maps Widget */
+
+.map {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  margin-bottom: 0.6vw;
+}
+
+.map:last-of-type { margin-bottom: 0; }

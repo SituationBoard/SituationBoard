@@ -1,0 +1,97 @@
+/*
+SituationBoard - Alarm Display for Fire Departments
+Copyright (C) 2017-2021 Sebastian Maier
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+/* Splash View */
+
+.splashview {
+  display: none;
+  background-image: radial-gradient(circle, #ffffff, #e1e1e1, #c3c3c3, #a7a7a7, #8b8b8b);
+}
+
+.splashview .splash_info_container {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.splash_info_container .splash_info_list {
+  width: 100 %;
+  text-align: center;
+}
+
+.splash_info_list .app_name { font-size: 9vmin; color: rgb(26, 54, 82); }
+.splash_info_list .app_description { font-size: 3.5vmin; color: rgb(70, 70, 70); margin-bottom: 2vmin; }
+.splash_info_list .app_version { font-size: 4vmin; color: rgb(70, 70, 70); margin-top: 2vmin; }
+.splash_info_list .app_license { font-size: 3vmin; color: rgb(26, 54, 82); margin-bottom: 1.5vmin; }
+.splash_info_list .app_url { font-size: 2.5vmin; color: rgb(70, 70, 70); }
+
+.splash_info_list .app_link {
+  display: block;
+  margin: 6vmin auto;
+  margin-bottom: 0vmin;
+  width: fit-content;
+  padding: 2vmin;
+}
+
+.splash_info_list .app_flip_logo {
+  margin: 0 auto;
+  width: 26vmin;
+  height: 26vmin;
+  text-align: center;
+  align-items: center;
+}
+
+.splash_info_list .app_logo {
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 26vmin;
+  height: 26vmin;
+  position: absolute;
+  animation-duration: 4.5s;
+  animation-delay: 1s;
+  animation-timing-function: ease-in-out;
+  -webkit-perspective: 0;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translate3d(0,0,0);
+  visibility:visible;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.splash_info_list .app_logo_front {
+  animation-name: spinFG;
+}
+
+.splash_info_list .app_logo_back {
+  transform: perspective(80vmin) rotateY(180deg);
+  animation-name: spinBG;
+}
+
+@keyframes spinFG {
+  from { transform: perspective(80vmin) rotateY(0deg); }
+  to { transform: perspective(80vmin) rotateY(360deg); }
+}
+
+@keyframes spinBG {
+  from { transform: perspective(80vmin) rotateY(180deg); }
+  to { transform: perspective(80vmin) rotateY(540deg); }
+}

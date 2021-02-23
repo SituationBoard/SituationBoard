@@ -1,0 +1,5 @@
+Flask
+Flask-SocketIO==5.0.0
+gevent
+gevent-websocket
+geopy

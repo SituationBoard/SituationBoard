@@ -1,0 +1,56 @@
+#image: "python:3.8"
+image: "ubuntu:20.04"
+
+before_script:
+  - export DEBIAN_FRONTEND=noninteractive
+  - apt-get update > /dev/null
+  - apt-get install -y apt-utils sudo psmisc > /dev/null
+  - ./sbctl ainstall base test # perform auto install
+  - python3 --version
+
+stages:
+  - validate
+  - test
+
+pylint:
+  stage: validate
+  script:
+    - sbctl test pylint
+
+mypy:
+  stage: validate
+  script:
+    - sbctl test mypy
+
+tidy:
+  stage: validate
+  script:
+    - sbctl test tidy
+
+eslint:
+  stage: validate
+  script:
+    - sbctl test eslint
+
+shellcheck:
+  stage: validate
+  script:
+    - sbctl test shellcheck
+
+pytest:
+  stage: test
+  script:
+    - sbctl test pytest
+
+runtest:
+  stage: test
+  script:
+    - sbctl test runtest
+
+setup:
+  stage: test
+  script:
+    - ./sbctl uninstall
+    - ./sbctl ainstall ALL
+    - ./sbctl reinstall
+    - ./sbctl uninstall

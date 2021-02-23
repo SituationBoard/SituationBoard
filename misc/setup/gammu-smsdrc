@@ -1,0 +1,24 @@
+# Configuration file for Gammu SMS Daemon
+
+# Gammu library configuration, see gammurc(5)
+[gammu]
+# General settings
+__SBDEVICE_LINE__
+__SBCONNECTION_LINE__
+name = Phone on USB serial port
+synchronizetime = yes
+# Debugging
+#logformat = textall
+
+# SMSD configuration, see gammu-smsdrc(5)
+[smsd]
+__SBPIN_LINE__
+service = files
+logfile = syslog
+# Increase for debugging information
+debuglevel = 0
+# Paths where messages are stored
+inboxpath = /var/spool/gammu/inbox/
+outboxpath = /var/spool/gammu/outbox/
+sentsmspath = /var/spool/gammu/sent/
+errorsmspath = /var/spool/gammu/error/

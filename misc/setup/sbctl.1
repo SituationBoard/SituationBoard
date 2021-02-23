@@ -1,0 +1,220 @@
+.\" Manpage for sbctl.
+.\" Contact basti@sebastianmaier.com to correct errors or typos.
+.TH SBCTL 1 "16 February 2021" "Linux" "sbctl man page"
+.SH NAME
+sbctl \- control SituationBoard via command line
+.SH SYNOPSIS
+\fBsbctl\fR COMMAND [PARAMETERS...]
+.SH DESCRIPTION
+sbctl controls the SituationBoard alarm display and
+allows easy maintenance, debugging and setup.
+.SH COMMANDS
+The sbctl tool does support the following commands:
+.SS "Maintenance"
+.PP
+\fBupdate\fR
+.RS 4
+Update to the latest version of SituationBoard (via GIT).
+.RE
+.PP
+\fBversion\fR
+.RS 4
+Show version information.
+.RE
+.PP
+\fBbackup\fR [[user@]host:]\fIdirectory\fR
+.RS 4
+Backup data and config to a local or remote \fIdirectory\fR.
+.RE
+.PP
+\fBexport\fR \fIfile\fR
+.RS 4
+Export data to a CSV \fIfile\fR.
+.RE
+.PP
+\fBimport\fR \fIfile\fR
+.RS 4
+Import data from a CSV \fIfile\fR.
+.RE
+.PP
+\fBrimport\fR \fIfile\fR
+.RS 4
+Import data from a CSV \fIfile\fR after resetting the database.
+.RE
+.PP
+\fBstart\fR
+.RS 4
+Start the SituationBoard service (for production use).
+.RE
+.PP
+\fBstop\fR
+.RS 4
+Stop the SituationBoard service.
+Requires the AUTOSTART feature to be installed.
+.RE
+.PP
+\fBrestart\fR
+.RS 4
+restart the SituationBoard service.
+Requires the AUTOSTART feature to be installed.
+.RE
+.PP
+\fBstatus\fR
+.RS 4
+Request the status of the SituationBoard service.
+Requires the AUTOSTART feature to be installed.
+.RE
+.PP
+\fBenable\fR
+.RS 4
+Enable the SituationBoard service.
+Requires the AUTOSTART feature to be installed.
+.RE
+.PP
+\fBdisable\fR
+.RS 4
+Disable the SituationBoard service.
+Requires the AUTOSTART feature to be installed.
+.RE
+.PP
+\fBlog\fR
+.RS 4
+Show the log of the SituationBoard service.
+Requires the AUTOSTART feature to be installed.
+.RE
+.PP
+.SS "Debugging and Testing"
+\fBrunf\fR [\fIparams\fR\&...]
+.RS 4
+Start SituationBoard with the specified \fIparams\fR as a foreground process (for debugging purposes).
+.RE
+.PP
+\fBrunb\fR [\fIparams\fR\&...]
+.RS 4
+Start SituationBoard with the specified \fIparams\fR as a background process (for debugging purposes).
+.RE
+.PP
+\fBrun\fR [\fIparams\fR\&...]
+.RS 4
+Alias for runb [\fIparams\fR\&...].
+.RE
+.PP
+\fBkill\fR
+.RS 4
+Kill SituationBoard (running in debugging mode).
+.RE
+.PP
+\fBfrontend\fR
+.RS 4
+Open a browser with the frontend.
+.RE
+.PP
+\fBtest\fR [\fItests\fR\&...]
+.RS 4
+Run the specified \fItests\fR (i.e. test cases or validations).
+Requires the TEST feature to be installed.
+.LP
+Available \fItests\fR:
+.TP 13
+pylint
+Run a linter over all the Python code.
+.TP 13
+mypy
+Run a static type checker over all the Python code.
+.TP 13
+tidy
+Run a linter over the HTML code.
+.TP 13
+eslint
+Run a linter over all the JavaScript code.
+.TP 13
+shellcheck
+Run a linter over all the Bash files.
+.TP 13
+pytest
+Run several Python test cases.
+.TP 13
+runtest
+Run an end-to-end alarm test.
+.TP 13
+ALL
+Run all the tests listed above.
+.RE
+.PP
+\fBdalarm\fR
+.RS 4
+Send a text alarm to the dummy source (for debugging purposes).
+.RE
+.PP
+\fBdbinary\fR
+.RS 4
+Send a binary alarm to the dummy source (for debugging purposes).
+.RE
+.PP
+\fBdsetting\fR
+.RS 4
+Send a settings message to the dummy source (for debugging purposes).
+.RE
+.PP
+.SS "Setup (requires root privileges)"
+\fBinstall\fR
+.RS 4
+Perform an interactive installation of all dependencies and required files.
+.RE
+.PP
+\fBainstall\fR [\fIfeatures\fR\&...]
+.RS 4
+Perform an automatic installation of the specified \fIfeatures\fR.
+.LP
+Available \fIfeatures\fR:
+.TP 13
+base
+Base installation of SituationBoard (always required).
+.TP 13
+gpio
+Required to receive alarms via binary inputs and to toggle outputs in reaction to an alarm (requires a Raspberry Pi).
+.TP 13
+sms
+Required to receive alarms via SMS (requires a cellular modem).
+.TP 13
+autostart
+Required for production use (takes care of frontend autostart and other system adjustments).
+.TP 13
+test
+Required to run automatic tests (used for development).
+.TP 13
+ALL
+Install all the features listed above.
+.RE
+.PP
+\fBreinstall\fR
+.RS 4
+Reinstall an existing installation (e.g. after an update).
+.RE
+.PP
+\fBuninstall\fR
+.RS 4
+Uninstall an existing installation (but keep config file and database).
+.RE
+.PP
+\fBremove\fR
+.RS 4
+Alias for uninstall.
+.RE
+.PP
+.SS "Other Commands"
+\fBhelp\fR
+.RS 4
+Shows a short help message / usage information.
+.RE
+.PP
+\fBusage\fR
+.RS 4
+Alias for help.
+.RE
+.PP
+
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+Sebastian Maier (basti@sebastianmaier.com)

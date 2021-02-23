@@ -1,0 +1,1 @@
+SUBSYSTEM=="usb", KERNEL=="__SBDEVICE__", TAG+="systemd", ENV{SYSTEMD_WANTS}="__SBSERVICE__"

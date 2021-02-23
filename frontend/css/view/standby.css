@@ -1,0 +1,170 @@
+/*
+SituationBoard - Alarm Display for Fire Departments
+Copyright (C) 2017-2021 Sebastian Maier
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+/* Standby View */
+
+.standbyview { display: none; }
+
+.top {
+  text-align: center;
+  color: white;
+  padding: 0.3vw;
+  white-space: pre;
+  box-shadow: 1px 1px 5px 0px #555;
+}
+
+.header { font-size: 3vw; background-color: rgb(70, 70, 70); }
+.news { font-size: 2.5vw; background-color: rgb(173, 31, 35); }
+
+.header:empty { display: none; }
+.news:empty   { display: none; }
+
+.standby_column_view {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+.standby_column_view .column {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+}
+.standby_column_view .column.left { float: left; text-align: left; }
+.standby_column_view .column.right { float: right; text-align: right; }
+
+.info_left, .info_right { font-size: 1.5vw; margin: 0vw; }
+
+.info_list ul {
+  list-style: none;
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.info_list li h3 {
+  font-size: 1.7vw;
+  padding: 0px;
+  margin: 0.2vw;
+  color: white;
+}
+
+.info_list li p {
+  font-size: 2.5vw;
+  padding: 0px;
+  margin: 0.2vw;
+  color: white;
+}
+
+.info_list li {
+  list-style-position: inside;
+  padding: 0.6vw;
+  overflow: auto;
+  margin: 1vw;
+  margin-bottom: 0vw;
+  box-shadow: 1px 1px 5px 0px #555;
+}
+
+.info_left li {
+  background-color: rgb(91, 132, 178);
+  border-left: 0.7vw solid rgb(61, 102, 148);
+  margin-right: 0.5vw;
+}
+
+.info_right li {
+  background-color: rgb(26, 54, 82);
+  border-right: 0.7vw solid rgb(0, 24, 52);
+  margin-left: 0.5vw;
+}
+
+/* Alarm List Widget */
+
+.alarmevents {
+  font-size: 1.5vw;
+  margin: 0vw;
+}
+
+.alarmevents li {
+  background-color: rgb(220, 124, 13);
+  margin-right: 0.5vw;
+  border-left: 0.7vw solid rgb(190, 94, 0);
+}
+
+/* Calendar Widget */
+
+.calendarevents {
+  font-size: 1.5vw;
+  margin: 0vw;
+}
+
+.calendarevents li {
+  background-color: rgb(0, 159, 60);
+  margin-left: 0.5vw;
+  border-right: 0.7vw solid rgb(0, 129, 30);
+}
+
+/* Stats Widget */
+
+.statsbox {
+  display: none;
+  font-size: 1.5vw;
+  padding: 1vw;
+  color: white;
+}
+
+.statsbox table { width: 100%; }
+
+.statsbox th {
+  width: 25%;
+  text-align: center;
+  font-size: 2vw;
+  font-weight: lighter;
+}
+
+.statsbox td {
+  width: 25%;
+  text-align: center;
+  font-size: 3.5vw;
+}
+
+/* Clock Widget */
+
+.clockbox {
+  display: none;
+  font-size: 3.5vw;
+  text-align: center;
+  padding: 0.5vw;
+  color: white;
+}
+
+.clockbox table { width: 100%; }
+
+.clockbox th {
+  width: 100%;
+  text-align: center;
+  font-size: 5vw;
+  font-weight: lighter;
+}
+
+.clockbox td {
+  width: 100%;
+  text-align: center;
+  font-size: 3.5vw;
+}

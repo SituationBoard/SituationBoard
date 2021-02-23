@@ -1,0 +1,20 @@
+[Unit]
+Description=SituationBoard Server
+Requires=local-fs.target network.target
+BindsTo=__SBDEVICE__
+After=local-fs.target network.target __SBDEVICE__
+Before=display-manager.service
+
+[Service]
+Type=simple
+User=__SBUSER__
+ExecStart=__SBPATH__/venv/bin/python -u __SBPATH__/SituationBoard.py
+WorkingDirectory=__SBPATH__
+Restart=always
+RestartSec=2
+StandardOutput=syslog
+StandardError=inherit
+SyslogIdentifier=situationboard
+
+[Install]
+WantedBy=multi-user.target __SBDEVICE__

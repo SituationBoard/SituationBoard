@@ -1,0 +1,349 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:Veranstaltungskalender der FFW Musterdorf - http://www.ffw-musterdorf.de
+METHOD:PUBLISH
+BEGIN:VTIMEZONE
+TZID:WEST
+BEGIN:STANDARD
+DTSTART:16010101T030000
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=-1SU;BYMONTH=10
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:16010101T020000
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=-1SU;BYMONTH=3
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:1068@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 1
+DESCRIPTION:Unterricht / Übung – Gruppe 1\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20210108T190000
+DTEND;TZID=WEST:20210108T220000
+DTSTAMP:20210101T180937Z
+END:VEVENT
+BEGIN:VEVENT
+UID:1069@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 2
+DESCRIPTION:Unterricht / Übung – Gruppe 2\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20210115T190000
+DTEND;TZID=WEST:20210115T220000
+DTSTAMP:20210101T180937Z
+END:VEVENT
+BEGIN:VEVENT
+UID:1070@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 1
+DESCRIPTION:Unterricht / Übung – Gruppe 1\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20210205T190000
+DTEND;TZID=WEST:20210205T220000
+DTSTAMP:20210101T180937Z
+END:VEVENT
+BEGIN:VEVENT
+UID:1071@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 2
+DESCRIPTION:Unterricht / Übung – Gruppe 2\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20210212T190000
+DTEND;TZID=WEST:20210212T220000
+DTSTAMP:20210101T180937Z
+END:VEVENT
+BEGIN:VEVENT
+UID:1072@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 1
+DESCRIPTION:Unterricht / Übung – Gruppe 1\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20210305T190000
+DTEND;TZID=WEST:20210305T220000
+DTSTAMP:20210101T180937Z
+END:VEVENT
+BEGIN:VEVENT
+UID:1073@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 2
+DESCRIPTION:Unterricht / Übung – Gruppe 2\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20210312T190000
+DTEND;TZID=WEST:20210312T220000
+DTSTAMP:20210101T180937Z
+END:VEVENT
+BEGIN:VEVENT
+UID:1074@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Fahrer / Maschinisten Ausbildung
+DESCRIPTION:Fahrer / Maschinisten Ausbildung\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20210320T100000
+DTEND;TZID=WEST:20210320T130000
+DTSTAMP:20210101T180937Z
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;VALUE=DURATION:-PT60M
+DESCRIPTION:Erinnerung/Alarm
+X-DEFAULT-ALARM:TRUE
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:1075@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 1
+DESCRIPTION:Unterricht / Übung – Gruppe 1\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20210402T190000
+DTEND;TZID=WEST:20210402T220000
+DTSTAMP:20210101T180937Z
+END:VEVENT
+BEGIN:VEVENT
+UID:1076@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 2
+DESCRIPTION:Unterricht / Übung – Gruppe 2\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20210409T190000
+DTEND;TZID=WEST:20210409T220000
+DTSTAMP:20210101T180937Z
+END:VEVENT
+BEGIN:VEVENT
+UID:1077@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 1
+DESCRIPTION:Unterricht / Übung – Gruppe 1\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20210507T190000
+DTEND;TZID=WEST:20210507T220000
+DTSTAMP:20210101T180937Z
+END:VEVENT
+BEGIN:VEVENT
+UID:1078@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 2
+DESCRIPTION:Unterricht / Übung – Gruppe 2\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20210514T100000
+DTEND;TZID=WEST:20210514T130000
+DTSTAMP:20210101T180937Z
+END:VEVENT
+BEGIN:VEVENT
+UID:1079@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 1
+DESCRIPTION:Unterricht / Übung – Gruppe 1\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20210604T100000
+DTEND;TZID=WEST:20210604T130000
+DTSTAMP:20210101T180937Z
+END:VEVENT
+BEGIN:VEVENT
+UID:1080@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 2
+DESCRIPTION:Unterricht / Übung – Gruppe 2\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20210611T100000
+DTEND;TZID=WEST:20210611T130000
+DTSTAMP:20210101T180937Z
+END:VEVENT
+BEGIN:VEVENT
+UID:1081@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 1
+DESCRIPTION:Unterricht / Übung – Gruppe 1\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20210702T190000
+DTEND;TZID=WEST:20210702T220000
+DTSTAMP:20210101T180937Z
+END:VEVENT
+BEGIN:VEVENT
+UID:1082@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 2
+DESCRIPTION:Unterricht / Übung – Gruppe 2\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20210709T190000
+DTEND;TZID=WEST:20210709T220000
+DTSTAMP:20210101T180937Z
+END:VEVENT
+BEGIN:VEVENT
+UID:1083@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 1
+DESCRIPTION:Unterricht / Übung – Gruppe 1\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20210806T190000
+DTEND;TZID=WEST:20210806T220000
+DTSTAMP:20210101T180937Z
+END:VEVENT
+BEGIN:VEVENT
+UID:1084@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 2
+DESCRIPTION:Unterricht / Übung – Gruppe 2\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20210813T190000
+DTEND;TZID=WEST:20210813T220000
+DTSTAMP:20210101T180937Z
+END:VEVENT
+BEGIN:VEVENT
+UID:1085@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 1
+DESCRIPTION:Unterricht / Übung – Gruppe 1\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20210903T190000
+DTEND;TZID=WEST:20210903T220000
+DTSTAMP:20210101T180937Z
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;VALUE=DURATION:-PT60M
+DESCRIPTION:Erinnerung/Alarm
+X-DEFAULT-ALARM:TRUE
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:1086@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 2
+DESCRIPTION:Unterricht / Übung – Gruppe 2\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20210910T190000
+DTEND;TZID=WEST:20210910T220000
+DTSTAMP:20210101T180937Z
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;VALUE=DURATION:-PT60M
+DESCRIPTION:Erinnerung/Alarm
+X-DEFAULT-ALARM:TRUE
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:1087@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 1
+DESCRIPTION:Unterricht / Übung – Gruppe 1\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20211001T190000
+DTEND;TZID=WEST:20211001T220000
+DTSTAMP:20210101T180937Z
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;VALUE=DURATION:-PT60M
+DESCRIPTION:Erinnerung/Alarm
+X-DEFAULT-ALARM:TRUE
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:1088@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 2
+DESCRIPTION:Unterricht / Übung – Gruppe 2\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20211008T190000
+DTEND;TZID=WEST:20211008T220000
+DTSTAMP:20210101T180937Z
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;VALUE=DURATION:-PT60M
+DESCRIPTION:Erinnerung/Alarm
+X-DEFAULT-ALARM:TRUE
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:1089@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 1
+DESCRIPTION:Unterricht / Übung – Gruppe 1\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20211105T190000
+DTEND;TZID=WEST:20211105T220000
+DTSTAMP:20210101T180937Z
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;VALUE=DURATION:-PT60M
+DESCRIPTION:Erinnerung/Alarm
+X-DEFAULT-ALARM:TRUE
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:1090@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 2
+DESCRIPTION:Unterricht / Übung – Gruppe 2\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20211112T190000
+DTEND;TZID=WEST:20211112T220000
+DTSTAMP:20210101T180937Z
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;VALUE=DURATION:-PT60M
+DESCRIPTION:Erinnerung/Alarm
+X-DEFAULT-ALARM:TRUE
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:1091@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 1
+DESCRIPTION:Unterricht / Übung – Gruppe 1\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20211203T190000
+DTEND;TZID=WEST:20211203T220000
+DTSTAMP:20210101T180937Z
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;VALUE=DURATION:-PT60M
+DESCRIPTION:Erinnerung/Alarm
+X-DEFAULT-ALARM:TRUE
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:1092@veranstaltung.ffw-musterdorf.de
+ORGANIZER;CN="Kommandant FFW Musterdorf":MAILTO:kommandant@ffw-musterdorf.de
+LOCATION:Musterdorf
+SUMMARY:Unterricht / Übung – Gruppe 2
+DESCRIPTION:Unterricht / Übung – Gruppe 2\n\nAKTIVE WEHR\n\nOrt:\nMusterdorf\n\nTreffpunkt:\nFeuerwehrhaus Musterdorf\n15 Minuten vorher
+CLASS:PUBLIC
+DTSTART;TZID=WEST:20211210T190000
+DTEND;TZID=WEST:20211210T220000
+DTSTAMP:20210101T180937Z
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;VALUE=DURATION:-PT60M
+DESCRIPTION:Erinnerung/Alarm
+X-DEFAULT-ALARM:TRUE
+END:VALARM
+END:VEVENT
+END:VCALENDAR
