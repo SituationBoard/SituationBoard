@@ -1,0 +1,104 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test_backend_pylint:
+    name: test_backend_pylint
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Perform installation
+        run: sudo ./sbctl ainstall test
+      - name: Run test
+        run: sbctl test pylint
+
+  test_backend_mypy:
+    name: test_backend_mypy
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Perform installation
+        run: sudo ./sbctl ainstall test
+      - name: Run test
+        run: sbctl test mypy
+
+  test_backend_pytest:
+    name: test_backend_pytest
+    runs-on: ubuntu-20.04
+    # needs: [test_backend_pylint, test_backend_mypy]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Perform installation
+        run: sudo ./sbctl ainstall test
+      - name: Run test
+        run: sbctl test pytest
+
+  test_backend_runtest:
+    name: test_backend_runtest
+    runs-on: ubuntu-20.04
+    # needs: [test_backend_pylint, test_backend_mypy]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Perform installation
+        run: sudo ./sbctl ainstall test
+      - name: Run test
+        run: sbctl test runtest
+
+  test_frontend_tidy:
+    name: test_frontend_tidy
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Perform installation
+        run: sudo ./sbctl ainstall test
+      - name: Run test
+        run: sbctl test tidy
+
+  test_frontend_eslint:
+    name: test_frontend_eslint
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Perform installation
+        run: sudo ./sbctl ainstall test
+      - name: Run test
+        run: sbctl test eslint
+
+  test_sbctl_shellcheck:
+    name: test_sbctl_shellcheck
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Perform installation
+        run: sudo ./sbctl ainstall test
+      - name: Run test
+        run: sbctl test shellcheck
+
+  test_sbctl_setup:
+    name: test_sbctl_setup
+    runs-on: ubuntu-20.04
+    # needs: test_sbctl_shellcheck
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Perform full installation
+        run: sudo ./sbctl ainstall ALL
+      - name: Perform reinstallation
+        run: sudo ./sbctl reinstall
+      - name: Perform uninstallation
+        run: sudo ./sbctl uninstall
