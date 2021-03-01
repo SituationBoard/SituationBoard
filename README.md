@@ -9,8 +9,10 @@ SituationBoard offers a lot of configuration options and supports different alar
 In addition, an alarm can trigger several actions (e.g. sending alarm messages via an external service or controlling outlets / alarm lights).
 
 **Keywords:**
-Alarm, Emergency, Operation, Fire, Mission, Situation, Incident, Briefing, Display, Monitor, Screen, Dashboard, Board, View, Panel, Visualization,
-Einsatz, Lage, Feuerwehr, Rettungsdienst, Anzeige, Alarmierung, Visualisierung, Bildschirm
+Alarm, Emergency, Operation, Fire, Rescue, Mission, Situation, Incident, Briefing,
+Display, Monitor, Screen, Dashboard, Board, View, Panel, Visualization,
+Einsatz, Lage, Feuerwehr, FW, FFW, THW, Technisches Hilfswerk, Rettungsdienst, Alarmierung, Visualisierung, Anzeige, Bildschirm,
+Alarmmonitor, Einsatzmonitor, Alarmanzeige, Einsatzanzeige, Alarmdisplay, Einsatzdisplay
 
 ### Features
 
@@ -62,7 +64,7 @@ The credits in form of a list of contributors and used third-party projects can 
 ## Software Requirements
 - [Linux](https://de.wikipedia.org/wiki/Linux) (with [systemd](https://en.wikipedia.org/wiki/Systemd) and GUI)
 - [Gammu](https://wammu.eu/gammu/) (SMS/Phone Library)
-- [Python](https://https://en.wikipedia.org/wiki/Python_(programming_language)) (Version 3.x)
+- [Python](https://https://en.wikipedia.org/wiki/Python_(programming_language)) (Version >= 3.7)
   - [Flask](https://en.wikipedia.org/wiki/Flask_(web_framework)) (Webserver)
   - [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/) (Socket IO for Webserver)
 - some other Python, JavaScript and Linux packages
