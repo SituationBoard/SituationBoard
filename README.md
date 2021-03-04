@@ -91,7 +91,7 @@ In addition to the setup script, there is also a [guide](docs/ManualInstallation
 
 Depending on your needs it might also be useful to enable the SSH daemon
 for remote command line access and the automatic GUI login on startup.
-On Raspbian both these settings can be configured with the command (```sudo raspi-config```).
+On Raspbian both these settings can be configured with the command ```sudo raspi-config```.
 
 ## Getting started
 To interact with the backend server the ```sbctl``` command line tool is used.
