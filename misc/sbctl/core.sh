@@ -145,7 +145,7 @@ core_get_git_info() {
 core_service_operation() {
   local OPERATION=$1
   if [[ "$OPERATION" == "status" ]]; then
-    systemctl status "$SBSERVICE"
+    systemctl status --all "$SBSERVICE"
     return $?
   else
     sudo systemctl "$OPERATION" "$SBSERVICE"

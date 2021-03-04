@@ -42,7 +42,7 @@ maintenance_service_operation() {
 }
 
 maintenance_service_show_log() {
-  journalctl -e -u "$SBSERVICE"
+  journalctl --all --pager-end --unit "$SBSERVICE"
   return $?
 }
 
