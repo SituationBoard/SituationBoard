@@ -1,3 +1,5 @@
+import json
+import re
 from os import path
 from typing import Optional
 
@@ -5,8 +7,6 @@ from backend.event.AlarmEvent import AlarmEvent
 from backend.event.SourceEvent import SourceEvent
 from backend.source.MessageParser import MessageParser
 from backend.util.Settings import Settings
-import json
-import re
 
 
 class MessageParserMail(MessageParser):

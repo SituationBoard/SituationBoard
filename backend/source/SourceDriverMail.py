@@ -40,7 +40,7 @@ class SourceDriverMail(SourceDriver):
     def retrieveEvent(self) -> Optional[SourceEvent]:
         if self.__connected:
             messages = self.__imap_server.search('UNSEEN')
-            for uid, message_data in self.__imap_server.fetch(messages, "RFC822").items():
+            for _, message_data in self.__imap_server.fetch(messages, "RFC822").items():
                 message = email.message_from_bytes(message_data[b"RFC822"], policy=policy.default)
                 sender = parseaddr(message.get("From"))[1]
                 if self.isSenderAllowed(allowlist=self.__allowlist, denylist=self.__denylist, sender=sender):
@@ -48,13 +48,12 @@ class SourceDriverMail(SourceDriver):
                     sourceEvent.source = SourceEvent.SOURCE_MAIL
                     sourceEvent.timestamp = message.get('Date')
                     sourceEvent.sender = sender
-                    sourceEvent.subject = message.get('Subject')
-                    sourceEvent.raw = message.get_body('plain').get_payload()
-                    parsedSourceEvent = self.parser.parseMessage(sourceEvent, None)
+                    sourceEvent.raw = message.get_body('plain').get_payload()  # type: ignore[attr-defined]
+                    parsedSourceEvent = self.parser.parseMessage(sourceEvent, None)  # type: ignore[union-attr]
                     return parsedSourceEvent
+        return None
 
     def getSourceState(self) -> SourceState:
         if self.__connected:
             return SourceState.OK
-        else:
-            return SourceState.ERROR
+        return SourceState.ERROR
