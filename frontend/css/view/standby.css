@@ -24,7 +24,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   text-align: center;
   color: white;
   padding: 0.3vw;
-  white-space: pre;
+  white-space: pre-wrap;
   box-shadow: 1px 1px 5px 0px #555;
 }
 
