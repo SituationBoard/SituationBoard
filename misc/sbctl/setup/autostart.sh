@@ -62,11 +62,11 @@ setup_install_autostart() {
   fi
 
   setup_print_step "Install unclutter"
-  apt-get install -y unclutter > /dev/null
+  apt-get install --yes unclutter > /dev/null
   check_result_done $?
 
   setup_print_step "Install CEC utils"
-  apt-get install -y cec-utils > /dev/null
+  apt-get install --yes cec-utils > /dev/null
   check_result_done $?
 
   setup_print_step "Install SituationBoard systemd service"

@@ -37,6 +37,11 @@ readonly SBHOME=$(getent passwd "$SBUSER" | cut -d: -f6)
 # Requested features
 FEATURES=""
 
+# CI_ACTIVE can be set to 1 when the setup is executed headless in a CI environment.
+# It prevents the execution of certain setup steps like upgrading packages that might cause
+# unexpected errors (e.g., by unavailable servers or unaccepted EULAs).
+CI_ACTIVE=${CI_ACTIVE:-0}
+
 ###################################################################
 #  Include Features
 ###################################################################

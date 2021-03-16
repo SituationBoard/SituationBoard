@@ -45,7 +45,7 @@ setup_ask_test() {
 
 setup_install_test() {
   setup_print_step "Install test tools"
-  apt-get install -y tidy shellcheck > /dev/null
+  apt-get install --yes tidy shellcheck > /dev/null
   check_result_done $?
 
   setup_print_step "Install Python dependencies"

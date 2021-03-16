@@ -4,8 +4,8 @@ image: "ubuntu:20.04"
 before_script:
   - export DEBIAN_FRONTEND=noninteractive
   - apt-get update > /dev/null
-  - apt-get install -y apt-utils sudo psmisc > /dev/null
-  - ./sbctl ainstall base test # perform auto install
+  - apt-get install --yes apt-utils sudo psmisc > /dev/null
+  - CI_ACTIVE=1 ./sbctl ainstall base test # perform auto install
   - python3 --version
 
 stages:
@@ -50,7 +50,7 @@ runtest:
 setup:
   stage: test
   script:
-    - ./sbctl uninstall
-    - ./sbctl ainstall ALL
-    - ./sbctl reinstall
-    - ./sbctl uninstall
+    - CI_ACTIVE=1 ./sbctl uninstall
+    - CI_ACTIVE=1 ./sbctl ainstall ALL
+    - CI_ACTIVE=1 ./sbctl reinstall
+    - CI_ACTIVE=1 ./sbctl uninstall

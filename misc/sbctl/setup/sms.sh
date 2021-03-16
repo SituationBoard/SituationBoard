@@ -78,7 +78,7 @@ setup_ask_sms() {
 
 setup_install_sms() {
   setup_print_step "Install GAMMU"
-  apt-get install -y gammu libgammu-dev > /dev/null
+  apt-get install --yes gammu libgammu-dev > /dev/null
   check_result_done $?
 
   setup_print_step "Install GAMMU config"
@@ -108,7 +108,7 @@ setup_install_sms() {
   check_result_done $?
 
   setup_print_step "Setup USB modeswitch (workaround for some E303 modems)"
-  apt-get install -y usb-modeswitch usb-modeswitch-data > /dev/null
+  apt-get install --yes usb-modeswitch usb-modeswitch-data > /dev/null
   check_result $?
   install -m 644 "$MODESWITCH_SRC_FILE" "$MODESWITCH_DST_FILE"
   check_result_done $?

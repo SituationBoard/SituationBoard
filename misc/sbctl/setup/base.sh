@@ -55,12 +55,17 @@ setup_ask_base() {
 
 setup_install_base() {
   setup_print_step "Upgrade all packages"
-  apt-get update -y > /dev/null
-  apt-get upgrade -y > /dev/null
-  check_result_done $?
+  if [[ $CI_ACTIVE -eq 0 ]]; then
+    apt-get update --yes > /dev/null
+    #check_result $?
+    apt-get upgrade --yes > /dev/null
+    check_result_done $?
+  else
+    echo_ok "Omitted."
+  fi
 
   setup_print_step "Install Python and JavaScript tools"
-  apt-get install -y python3-dev python3-pip python3-venv npm > /dev/null
+  apt-get install --yes python3-dev python3-pip python3-venv npm > /dev/null
   check_result_done $?
 
   setup_print_step "Install sbctl tool"
