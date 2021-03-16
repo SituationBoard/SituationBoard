@@ -99,9 +99,10 @@ maintenance_backup() {
 
   local BACKUP_FOLDER_NAME="situationboard_backup_$CURRENT_DATE"
   local BACKUP_FOLDER="$SBTEMP/$BACKUP_FOLDER_NAME"
-  mkdir -p "$BACKUP_FOLDER"
 
   core_service_suspend; local SERVICE_WAS_ACTIVE=$?
+
+  mkdir -p "$BACKUP_FOLDER"
 
   core_export "$BACKUP_FOLDER/$CSV_FILE"
   local RESULT=$?
@@ -136,9 +137,9 @@ maintenance_backup() {
     fi
   fi
 
-  core_service_resume $SERVICE_WAS_ACTIVE
-
   rm -rf "$BACKUP_FOLDER"
+
+  core_service_resume $SERVICE_WAS_ACTIVE
 
   return $RESULT
 }

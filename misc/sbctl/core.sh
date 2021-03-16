@@ -164,7 +164,10 @@ core_service_suspend() {
     local WAS_ACTIVE=$?
 
     if [[ $WAS_ACTIVE -eq 0 ]]; then
-      core_service_operation stop
+      if ! core_service_operation stop; then
+        # echo_error "Canceled."
+        exit 1
+      fi
     fi
 
     return $WAS_ACTIVE
