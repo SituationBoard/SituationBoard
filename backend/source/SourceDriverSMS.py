@@ -159,13 +159,16 @@ class SourceDriverSMS(SourceDriver):
         if self.parser is None:
             return SourceState.ERROR
 
-        # networkSignal = self.__gsm.GetSignalQuality()
-        networkInfo = self.__gsm.GetNetworkInfo()
+        try:
+            # networkSignal = self.__gsm.GetSignalQuality()
+            networkInfo = self.__gsm.GetNetworkInfo()
 
-        # self.dbgPrint(networkSignal)
-        # self.dbgPrint(networkInfo)
+            # self.dbgPrint(networkSignal)
+            # self.dbgPrint(networkInfo)
 
-        if networkInfo["NetworkCode"] != "":
-            return SourceState.OK
+            if networkInfo["NetworkCode"] != "":
+                return SourceState.OK
+        except Exception:
+            pass
 
         return SourceState.ERROR
