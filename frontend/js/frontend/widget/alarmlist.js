@@ -62,17 +62,23 @@ export default class AlarmListWidget extends Widget {
                     numAlarms++;
                 }
             });
-            if(numAlarms == 0){
-              alarmHTML = '<li><h3>' + this.language.textAlarmHistory + '</h3>' +
-                          '<p>' + this.language.textNoAlarmEntries + '</p></li>';
+
+            if(numAlarms > 0){
+                $('#alarmevents').html('<ul>' + alarmHTML + '</ul>');
+            }else{
+                this.showMessage(this.language.textNoAlarmEntries);
             }
-            //this.log('alarmHTML: ' + alarmHTML);
-            $('#alarmevents').html('<ul>' + alarmHTML + '</ul>');
         });
     }
 
     update() {
         this.frontend.socketSendParams('get_last_alarm_events', {count: this.settings.maxAlarmEvents});
+    }
+
+    showMessage(message) {
+        const messageHTML = '<li><h3>' + this.language.textAlarmHistory + '</h3>' +
+                          '<p>' + message + '</p></li>';
+        $('#alarmevents').html('<ul>' + messageHTML + '</ul>');
     }
 
 }

@@ -92,6 +92,10 @@ export default class Frontend {
         }
     }
 
+    warn(message) {
+        console.warn(message);
+    }
+
     error(message) {
         console.error(message);
     }

@@ -133,7 +133,7 @@ export default class MapsGoogleWidget extends MapsWidget {
                         this.mapAlarmLocation = results[0].geometry.location;
                         this.__updateMaps();
                     }else{
-                        this.error("Google Maps failed to find address: " + status);
+                        this.warn("Google Maps failed to find address: " + status);
                     }
                 });
             }
@@ -161,7 +161,7 @@ export default class MapsGoogleWidget extends MapsWidget {
                     this.showRouteMap();
                     this.mapDirectionsDisplay.setDirections(result);
                 }else{
-                    this.error("Google Maps failed to calc route: " + status);
+                    this.warn("Google Maps failed to calc route: " + status);
                 }
             });
         }

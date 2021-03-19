@@ -97,10 +97,10 @@ export default class MapsOSMWidget extends MapsWidget {
                     if(data != null && Array.isArray(data) && data.length > 0){
                         this.__updateMaps(data[0].lon, data[0].lat);
                     }else{
-                        this.error("OSM failed to find address");
+                        this.warn("OSM failed to find address");
                     }
                 }).fail(() => {
-                    this.error("OSM failed to find address");
+                    this.warn("OSM failed to find address");
                 });
             }
         }
@@ -131,10 +131,10 @@ export default class MapsOSMWidget extends MapsWidget {
 
                     this.__updateRouteMap(homeLongitude, homeLatitude, locationLongitude, locationLatitude, route);
                 }else{
-                    this.error("OSM failed to calc route");
+                    this.warn("OSM failed to calc route");
                 }
             }).fail(() => {
-                this.error("OSM failed to calc route");
+                this.warn("OSM failed to calc route");
             });
         }
     }

@@ -34,13 +34,15 @@ export default class CalendarWidget extends Widget {
 
     update() {
         if(this.settings.calendarURL == ""){
-            this.error(this.language.textNoCalendarError);
+            // this.warn("No calendar configured");
+            this.showMessage(this.language.textNoCalendarError);
         }else{
             $.get(this.settings.calendarURL)
             .done(fileData => {
                 const data = ical.parseICS(fileData);
 
                 let numEvents = 0;
+                let numIgnored = 0;
                 let eventHTML = '';
                 const nowDate = moment();
 
@@ -66,24 +68,30 @@ export default class CalendarWidget extends Widget {
                                 }
                             }else if(typeof event.rrule !== 'undefined'){
                                 //TODO: handle recurring events
+                                numIgnored++;
                             }
                         }
                     }
                 }
 
-                if(numEvents != 0){
+                if(numIgnored > 0){
+                    this.warn("Ignored " + numIgnored + " recurring calendar events");
+                }
+
+                if(numEvents > 0){
                     $('#calendarevents').html('<ul>' + eventHTML + '</ul>');
                 }else{
-                    this.error(this.language.textNoCalendarEntries);
+                    this.showMessage(this.language.textNoCalendarEntries);
                 }
             })
             .fail((err) => {
-                this.error(this.language.textNoCalendarError);
+                // this.warn("No calendar available");
+                this.showMessage(this.language.textNoCalendarError);
             });
         }
     }
 
-    error(message) {
+    showMessage(message) {
         const messageHTML = '<li><h3>' + this.language.textCalendar + '</h3>' +
                           '<p>' + message + '</p></li>';
         $('#calendarevents').html('<ul>' + messageHTML + '</ul>');

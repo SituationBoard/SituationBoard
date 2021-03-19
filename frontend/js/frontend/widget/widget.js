@@ -31,6 +31,10 @@ export default class Widget {
         this.frontend.log(message);
     }
 
+    warn(message) {
+        this.frontend.warn(message);
+    }
+
     error(message) {
         this.frontend.error(message);
     }
