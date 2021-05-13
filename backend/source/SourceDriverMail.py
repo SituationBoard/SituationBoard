@@ -28,8 +28,8 @@ class SourceDriverMail(SourceDriver):
         try:
             if self.isDebug():
                 self.print("Checking for new mails")
-            messages = self.__imap_server.search('UNSEEN')
-            for _, message_data in self.__imap_server.fetch(messages, "RFC822").items():
+            messages = self.__imap_client.search('UNSEEN')
+            for _, message_data in self.__imap_client.fetch(messages, "RFC822").items():
                 message = email.message_from_bytes(message_data[b"RFC822"], policy=policy.default)
                 sender = parseaddr(message.get("From"))[1]
                 sourceEvent = SourceEvent()
@@ -61,17 +61,17 @@ class SourceDriverMail(SourceDriver):
         try:
             if self.isDebug():
                 self.print("Connecting to server {}".format(server))
-            self.__imap_server = IMAPClient(server, use_uid=True, ssl_context=context, timeout=1.0)
+            self.__imap_client = IMAPClient(server, use_uid=True, ssl_context=context, timeout=1.0)
         except gaierror:
             self.error("Failed to connect to Mail Server")
         else:
             try:
                 if self.isDebug():
                     self.print("Login as user {}".format(user))
-                self.__imap_server.login(user, password)
+                self.__imap_client.login(user, password)
             except LoginError:
                 self.error("Mail Server login failed")
             else:
                 if self.isDebug():
                     self.print("Login successful")
-                self.__imap_server.select_folder('INBOX', readonly=False)
+                self.__imap_client.select_folder('INBOX', readonly=False)
