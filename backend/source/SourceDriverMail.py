@@ -36,7 +36,7 @@ class SourceDriverMail(SourceDriver):
                 sourceEvent.source = SourceEvent.SOURCE_MAIL
                 sourceEvent.timestamp = message.get('Date')
                 sourceEvent.sender = sender
-                sourceEvent.raw = message.get_body('plain').get_payload()  # type: ignore[attr-defined]
+                sourceEvent.raw = message
                 if self.isSenderAllowed(allowlist=self.__allowlist, denylist=self.__denylist, sender=sender):
                     parsedSourceEvent = self.parser.parseMessage(sourceEvent, None)  # type: ignore[union-attr]
                     return parsedSourceEvent
