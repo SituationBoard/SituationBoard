@@ -35,13 +35,10 @@ class CSVImporter(CSVCommon):
             self.fatalContinue(f"Could not read CSV file ({filename})")
             return 1
 
-        line = 0
         importedCount = 0
         invalidCount = 0
-        for alarm in alarmList:
-            line += 1
-
-            if ignoreFirstLine and line == 1:
+        for line, alarm in enumerate(alarmList):
+            if ignoreFirstLine and line == 0:
                 continue
 
             #TODO: support multiple header lengths (to support file updates and older CSV files):
