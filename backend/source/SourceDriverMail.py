@@ -19,6 +19,7 @@ class SourceDriverMail(SourceDriver):
 
     def __init__(self, instanceName: str, settings: Settings, parser: MessageParser) -> None:
         super().__init__("mail", instanceName, settings, parser)
+        # Settings
         self.__server = self.getSettingString("server", "")
         self.__user = self.getSettingString("user", "")
         self.__password = self.getSettingString("password", "")
@@ -26,7 +27,21 @@ class SourceDriverMail(SourceDriver):
         self.__fix_weak_dh = self.getSettingBoolean("fix_weak_dh", False)
         self.__allowlist = self.getSettingList("allowlist", [])
         self.__denylist = self.getSettingList("denylist", [])
+        self.__cleanup = self.getSettingString("cleanup", "")
+        self.__archive_folder = self.getSettingString("archive_folder", "Archive")
+
+        if self.__cleanup == "Delete":
+            self.print("Cleanup strategy is delete")
+        elif self.__cleanup == "Archive":
+            self.print("Cleanup strategy is archive")
+        elif self.__cleanup == "":
+            self.print("Cleanup is disabled")
+        else:
+            self.fatal("Unknown cleanup strategy")
+
+        # Internal
         self.__healthy = False
+
         self.__connect()
 
     def retrieveEvent(self) -> Optional[SourceEvent]:
@@ -34,7 +49,7 @@ class SourceDriverMail(SourceDriver):
             if self.isDebug():
                 self.print("Checking for new mails")
             messages = self.__imap_client.search('UNSEEN')
-            for _, message_data in self.__imap_client.fetch(messages, "RFC822").items():
+            for uid, message_data in self.__imap_client.fetch(messages, "RFC822").items():
                 message = email.message_from_bytes(message_data[b"RFC822"], policy=policy.default)
                 sender = parseaddr(message.get("From"))[1]
                 sourceEvent = SourceEvent()
@@ -43,7 +58,8 @@ class SourceDriverMail(SourceDriver):
                 sourceEvent.sender = sender
                 sourceEvent.raw = message
                 if self.isSenderAllowed(allowlist=self.__allowlist, denylist=self.__denylist, sender=sender):
-                    parsedSourceEvent = self.parser.parseMessage(sourceEvent, None)  # type: ignore[union-attr]
+                    #parsedSourceEvent = self.parser.parseMessage(sourceEvent, None)  # type: ignore[union-attr]
+                    self.__do_cleanup(uid)
                     return parsedSourceEvent
                 else:
                     self.error("Received unhandled message (ignored sender)")
@@ -85,3 +101,16 @@ class SourceDriverMail(SourceDriver):
                     self.print("Login successful")
                 self.__healthy = True
                 self.__imap_client.select_folder('INBOX', readonly=False)
+
+    def __create_imap_folder(self, folder):
+        if not self.__imap_client.folder_exists(folder):
+            self.print("Folder {} does not exist creating")
+            self.__imap_client.create_folder(folder)
+
+    def __do_cleanup(self, uid):
+        if self.__cleanup == "Archive":
+            self.__create_imap_folder(self.__archive_folder)
+            self.__imap_client.copy(uid, self.__archive_folder)
+        if self.__cleanup == "Delete" or self.__cleanup == "Archive":
+            self.__imap_client.delete_messages(uid)
+            self.__imap_client.expunge(uid)
