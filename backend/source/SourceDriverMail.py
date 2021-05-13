@@ -26,6 +26,7 @@ class SourceDriverMail(SourceDriver):
         self.__fix_weak_dh = self.getSettingBoolean("fix_weak_dh", False)
         self.__allowlist = self.getSettingList("allowlist", [])
         self.__denylist = self.getSettingList("denylist", [])
+        self.__healthy = False
         self.__connect()
 
     def retrieveEvent(self) -> Optional[SourceEvent]:
@@ -49,10 +50,11 @@ class SourceDriverMail(SourceDriver):
                     return UnhandledEvent.fromSourceEvent(sourceEvent, UnhandledEvent.CAUSE_IGNORED_SENDER)
         except (timeout, OSError) as e:
             self.error("Connection to mailserver timed out")
+            self.__healthy = False
             self.__connect()
 
     def getSourceState(self) -> SourceState:
-        if self.__connected:
+        if self.__healthy:
             return SourceState.OK
         return SourceState.ERROR
 
@@ -81,4 +83,5 @@ class SourceDriverMail(SourceDriver):
             else:
                 if self.isDebug():
                     self.print("Login successful")
+                self.__healthy = True
                 self.__imap_client.select_folder('INBOX', readonly=False)
