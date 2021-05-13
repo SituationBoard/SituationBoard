@@ -9,6 +9,7 @@ from imapclient import IMAPClient
 from imapclient.exceptions import LoginError
 
 from backend.event.SourceEvent import SourceEvent
+from backend.event.UnhandledEvent import UnhandledEvent
 from backend.source.MessageParser import MessageParser
 from backend.source.SourceDriver import SourceDriver, SourceState
 from backend.util.Settings import Settings
@@ -31,14 +32,17 @@ class SourceDriverMail(SourceDriver):
             for _, message_data in self.__imap_server.fetch(messages, "RFC822").items():
                 message = email.message_from_bytes(message_data[b"RFC822"], policy=policy.default)
                 sender = parseaddr(message.get("From"))[1]
+                sourceEvent = SourceEvent()
+                sourceEvent.source = SourceEvent.SOURCE_MAIL
+                sourceEvent.timestamp = message.get('Date')
+                sourceEvent.sender = sender
+                sourceEvent.raw = message.get_body('plain').get_payload()  # type: ignore[attr-defined]
                 if self.isSenderAllowed(allowlist=self.__allowlist, denylist=self.__denylist, sender=sender):
-                    sourceEvent = SourceEvent()
-                    sourceEvent.source = SourceEvent.SOURCE_MAIL
-                    sourceEvent.timestamp = message.get('Date')
-                    sourceEvent.sender = sender
-                    sourceEvent.raw = message.get_body('plain').get_payload()  # type: ignore[attr-defined]
                     parsedSourceEvent = self.parser.parseMessage(sourceEvent, None)  # type: ignore[union-attr]
                     return parsedSourceEvent
+                else:
+                    self.error("Received unhandled message (ignored sender)")
+                    return UnhandledEvent.fromSourceEvent(sourceEvent, UnhandledEvent.CAUSE_IGNORED_SENDER)
         except (timeout, OSError) as e:
             self.error("Connection to mailserver timed out")
             self.__connect()
