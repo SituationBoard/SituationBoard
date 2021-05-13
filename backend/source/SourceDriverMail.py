@@ -19,7 +19,11 @@ class SourceDriverMail(SourceDriver):
 
     def __init__(self, instanceName: str, settings: Settings, parser: MessageParser) -> None:
         super().__init__("mail", instanceName, settings, parser)
-        self.__settings = settings
+        self.__server = self.getSettingString("server", "")
+        self.__user = self.getSettingString("user", "")
+        self.__password = self.getSettingString("password", "")
+        self.__ssl = self.getSettingBoolean("ssl", True)
+        self.__fix_weak_dh = self.getSettingBoolean("fix_weak_dh", False)
         self.__allowlist = self.getSettingList("allowlist", [])
         self.__denylist = self.getSettingList("denylist", [])
         self.__connect()
@@ -53,22 +57,25 @@ class SourceDriverMail(SourceDriver):
         return SourceState.ERROR
 
     def __connect(self):
-        context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)  # Workaround for test
-        context.set_ciphers('DEFAULT@SECLEVEL=1')  # Workaround for test
-        server = self.getSettingString("mail_server", "")
-        user = self.getSettingString("mail_user", "")
-        password = self.getSettingString("mail_password", "")
+        if self.__fix_weak_dh:
+            context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)  # Workaround for weak dh key
+            context.set_ciphers('DEFAULT@SECLEVEL=1')
+        else:
+            context = ssl.SSLContext()
+
         try:
             if self.isDebug():
-                self.print("Connecting to server {}".format(server))
-            self.__imap_client = IMAPClient(server, use_uid=True, ssl_context=context, timeout=1.0)
+                self.print("Connecting to server {}".format(self.__server))
+            self.__imap_client = IMAPClient(self.__server, use_uid=True,ssl=self.__ssl, ssl_context=context, timeout=1.0)
         except gaierror:
             self.error("Failed to connect to Mail Server")
+        except ssl.SSLError:
+            self.fatal("Failed to connect to Mail Server (TLS Error)")
         else:
             try:
                 if self.isDebug():
-                    self.print("Login as user {}".format(user))
-                self.__imap_client.login(user, password)
+                    self.print("Login as user {}".format(self.__user))
+                self.__imap_client.login(self.__user, self.__password)
             except LoginError:
                 self.error("Mail Server login failed")
             else:
