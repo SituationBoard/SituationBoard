@@ -95,7 +95,7 @@ class WebSocket(Module):
     def run(self) -> None:
         port = self.settings.getBackendServerPort()
 
-        self.print(f"Listening on port {port}")
+        self.clrPrint(f"Listening on port {port}")
 
         try:
             self.socketio.run(self.app,
