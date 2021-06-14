@@ -67,7 +67,8 @@ class DisplayPowerManager(Module):
         shellCommand = ["cec-client", "-d", "1", "-s"]
 
         stdin = cecCommand + '\n'
-        process = subprocess.Popen(shellCommand, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
-        (stdout, stderr) = process.communicate(stdin.encode())
-        _ = stderr
-        return stdout.decode()
+
+        with subprocess.Popen(shellCommand, stdout=subprocess.PIPE, stdin=subprocess.PIPE) as process:
+            (stdout, stderr) = process.communicate(stdin.encode())
+            _ = stderr
+            return stdout.decode()

@@ -61,10 +61,10 @@ class ActionUpdateCalendar(Action):
 
         try:
             toURLtemp = toURL + ".tmp"
-            fIn = URLRequest.urlopen(fromURL, timeout=timeout)
-            data = fIn.read()
-            with open(toURLtemp, "wb") as fOut:
-                fOut.write(data)
+            with URLRequest.urlopen(fromURL, timeout=timeout) as fIn:
+                data = fIn.read()
+                with open(toURLtemp, "wb") as fOut:
+                    fOut.write(data)
 
             os.rename(toURLtemp, toURL) # atomically overwrite/replace previous file
 
