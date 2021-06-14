@@ -32,6 +32,7 @@ class SourceDriverSMS(SourceDriver):
         self.__allowlist   = self.getSettingList("allowlist", [])
         self.__denylist   = self.getSettingList("denylist", [])
         self.__lastEvent: Optional[SourceEvent] = None
+        self.__lastSourceState: Optional[SourceState] = None
 
         self.__gsm = gammu.StateMachine()
         try:
@@ -44,11 +45,16 @@ class SourceDriverSMS(SourceDriver):
         except Exception as e:
             self.fatal("Could not initialize SMS driver", e)
 
+        # make sure we log changes of the source state as early as possible
+        self.getSourceState()
+
     def retrieveEvent(self) -> Optional[SourceEvent]:
-        if self.__gsm is None:
+        if self.__gsm is None or self.parser is None:
             return None
-        if self.parser is None:
-            return None
+
+        # make sure we log changes of the source state before checking for stored SMS
+        # (regardless of the source state and network reception)
+        self.getSourceState()
 
         start = True
         cursms = None
@@ -131,9 +137,7 @@ class SourceDriverSMS(SourceDriver):
         for loc in locs:
             self.__gsm.DeleteSMS(Location = loc, Folder = 0)
 
-        self.clrPrint("Received message")
-
-        self.dbgPrint("Received SMS from " + sender + " (timestamp " + timeStamp + ")")
+        self.clrPrint("Received SMS from " + sender + " (timestamp " + timeStamp + ")")
         self.dbgPrint(rawText)
 
         sourceEvent = SourceEvent()
@@ -154,21 +158,34 @@ class SourceDriverSMS(SourceDriver):
         return parsedSourceEvent
 
     def getSourceState(self) -> SourceState:
-        if self.__gsm is None:
-            return SourceState.ERROR
-        if self.parser is None:
-            return SourceState.ERROR
+        sourceState = SourceState.ERROR
 
-        try:
-            # networkSignal = self.__gsm.GetSignalQuality()
-            networkInfo = self.__gsm.GetNetworkInfo()
+        networkSignal = None
+        networkInfo = None
+        if self.__gsm is not None and self.parser is not None:
+            try:
+                networkInfo = self.__gsm.GetNetworkInfo()
 
-            # self.dbgPrint(networkSignal)
-            # self.dbgPrint(networkInfo)
+                if self.isDebug():
+                    networkSignal = self.__gsm.GetSignalQuality()
 
-            if networkInfo["NetworkCode"] != "":
-                return SourceState.OK
-        except Exception:
-            pass
+                if networkInfo["NetworkCode"] != "":
+                    sourceState = SourceState.OK
+            except Exception:
+                pass
 
-        return SourceState.ERROR
+        if self.__lastSourceState is None or self.__lastSourceState != sourceState:
+            if sourceState == SourceState.OK:
+                self.clrPrint(f"Source state changed to {sourceState.name}")
+            else:
+                self.error(f"Source state changed to {sourceState.name}")
+
+            if self.isDebug() and networkInfo is not None:
+                self.dbgPrint(f"Network info: {networkInfo}")
+
+            if self.isDebug() and networkSignal is not None:
+                self.dbgPrint(f"Network signal: {networkSignal}")
+
+            self.__lastSourceState = sourceState
+
+        return sourceState
