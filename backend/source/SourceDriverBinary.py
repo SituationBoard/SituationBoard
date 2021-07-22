@@ -17,7 +17,7 @@
 import datetime
 from typing import Optional
 
-import RPi.GPIO as GPIO #pylint: disable=import-error
+from RPi import GPIO #pylint: disable=import-error
 
 from backend.source.SourceDriver import SourceDriver, SourceState
 from backend.event.SourceEvent import SourceEvent

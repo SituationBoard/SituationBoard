@@ -344,6 +344,7 @@ class Database(Module):
             alarmEvent.raw,
             alarmEvent.flags)
 
+    #pylint: disable=unused-private-member
     @classmethod
     def __tupleWithIDFromAlarmEvent(cls, alarmEvent: AlarmEvent) -> Tuple[Any, ...]:
         return (alarmEvent.eventID,) + cls.__tupleWithoutIDFromAlarmEvent(alarmEvent)

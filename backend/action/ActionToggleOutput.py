@@ -16,7 +16,7 @@
 
 import time
 
-import RPi.GPIO as GPIO #pylint: disable=import-error
+from RPi import GPIO #pylint: disable=import-error
 
 from backend.action.Action import Action
 from backend.util.Settings import Settings

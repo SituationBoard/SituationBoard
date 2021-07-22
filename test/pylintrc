@@ -158,6 +158,7 @@ disable=print-statement,
         unused-argument,
         no-self-use,
         inconsistent-return-statements,
+        unspecified-encoding,
         fixme
 # End Custom SituationBoard
 
