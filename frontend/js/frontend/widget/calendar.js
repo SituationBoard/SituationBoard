@@ -49,7 +49,7 @@ export default class CalendarWidget extends Widget {
                 for(const k in data){
                     if(Object.prototype.hasOwnProperty.call(data, k)){
                         const event = data[k];
-                        if(data[k].type == 'VEVENT'){
+                        if(event.type == 'VEVENT'){
                             const eventTitle = event.summary;
                             const eventStartDate = moment(event.start);
                             const eventEndDate = moment(event.end);
