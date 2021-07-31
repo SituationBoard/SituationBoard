@@ -40,7 +40,8 @@ export default class StandbyView extends View {
         const timestamp = new Date();
 
         this.lastDate = timestamp;
-        this.lastCalendarUpdate = timestamp;
+        this.lastCalendarUpdateReload = timestamp;
+        this.lastCalendarUpdateList = timestamp;
     }
 
     init() {
@@ -65,8 +66,10 @@ export default class StandbyView extends View {
 
         this.frontend.registerSocketHandler('calendar_changed', (data) => {
             this.log("Updating calendar... (backend event)");
-            this.lastCalendarUpdate = new Date();
-            this.calendarWidget.update();
+            const timestamp = new Date();
+            this.lastCalendarUpdateReload = timestamp;
+            this.lastCalendarUpdateList = timestamp;
+            this.calendarWidget.update(); // reload calendar file and update event list
         });
     }
 
@@ -86,21 +89,36 @@ export default class StandbyView extends View {
     cyclic(currentTime) {
         this.clockWidget.update(currentTime);
 
+        let calendarWasReloaded = false;
+
         if(this.lastDate.toDateString() != currentTime.toDateString()){
             //new day
             this.lastDate = currentTime;
             this.log("Updating statistics... (new day)");
             this.statsWidget.update();
             this.log("Updating calendar... (new day)");
-            this.calendarWidget.update();
+            this.lastCalendarUpdateReload = currentTime;
+            this.lastCalendarUpdateList = currentTime;
+            this.calendarWidget.update(); // reload calendar file and update event list
+            calendarWasReloaded = true;
         }
 
         if(this.settings.calendarUpdateDuration > 0){
             const durationMS = currentTime - this.lastCalendarUpdate;
             if(durationMS > this.settings.calendarUpdateDuration * 1000){
-                this.lastCalendarUpdate = currentTime;
+                this.lastCalendarUpdateReload = currentTime;
+                this.lastCalendarUpdateList = currentTime;
                 this.log("Updating calendar... (timer)");
-                this.calendarWidget.update();
+                this.calendarWidget.update(); // reload calendar file and update event list
+                calendarWasReloaded = true;
+            }
+        }
+
+        if(calendarWasReloaded == false){
+            if(this.lastCalendarUpdateList.getMinutes() != currentTime.getMinutes()){
+                //new minute
+                this.lastCalendarUpdateList = currentTime;
+                this.calendarWidget.update(false); // false -> do not reload calendar file but update event list
             }
         }
     }

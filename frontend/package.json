@@ -16,7 +16,8 @@
     "jquery": "latest",
     "moment": "latest",
     "socket.io-client": "3.0.4",
-    "ical": "latest"
+    "rrule": "2.4.1",
+    "ical": "0.8.0"
   },
   "devDependencies": {
     "babel-eslint": "latest",
