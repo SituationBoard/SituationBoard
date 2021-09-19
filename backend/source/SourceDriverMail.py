@@ -1,3 +1,4 @@
+import datetime
 import email
 import ssl
 from email import policy
@@ -54,7 +55,7 @@ class SourceDriverMail(SourceDriver):
                 sender = parseaddr(message.get("From"))[1]
                 sourceEvent = SourceEvent()
                 sourceEvent.source = SourceEvent.SOURCE_MAIL
-                sourceEvent.timestamp = message.get('Date')
+                sourceEvent.timestamp = datetime.datetime.strptime(message.get('Date'), "%a, %d %b %Y %H:%M:%S %z").strftime(SourceEvent.TIMESTAMP_FORMAT)
                 sourceEvent.sender = sender
                 sourceEvent.raw = message.get_body(('plain',)).get_content()
                 if self.isSenderAllowed(allowlist=self.__allowlist, denylist=self.__denylist, sender=sender):
