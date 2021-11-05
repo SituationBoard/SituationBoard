@@ -36,7 +36,9 @@ class MessageParserMail(MessageParser):
         alarmEvent.locationDetails = self.__search_payload(r'^[\t ]Straße[\t ]+:[\t ]+([\w ]+)$') + "\nObjekt: " + self.__search_payload(r'^[\t ]+Objekt[\t ]+:[\t ]*([\w\t ]*)$')
         alarmEvent.locationLatitude = self.__search_payload(r'^https://www\.google\.de/maps/place/(\d+\.\d+),\d+\.\d+$')
         alarmEvent.locationLongitude = self.__search_payload(r'^https://www\.google\.de/maps/place/\d+\.\d+,(\d+\.\d+)$')
-        alarmEvent.comment = self.__search_payload(r'^[\t ]+-+[\t ]+BEMERKUNG[\t ]+-+\n+[\t ]([\w\s:#]+)-+[\t ]+Alarmmail')
+        comment = self.__search_payload(r'^[\t ]+-+[\t ]+BEMERKUNG[\t ]+-+\n+[\t \n]([\w\s:#,.]+)-+[\t ]+Alarmmail')
+        comment_filtered = filter(lambda x: not re.match(r'^\n*$', x), comment)
+        alarmEvent.comment = ''.join(comment_filtered)
 
         alarmEvent.flags = AlarmEvent.FLAGS_VALID
         return alarmEvent
