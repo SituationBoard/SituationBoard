@@ -215,6 +215,10 @@ class Database(Module):
                 self.error("Could not add alarm event")
                 return -1
 
+            if cursor.lastrowid is None:
+                self.error("Could not add alarm event")
+                return -1
+
             alarmEvent.eventID = cursor.lastrowid
 
             if verbose:

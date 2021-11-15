@@ -16,9 +16,10 @@
 
 import signal
 import datetime
+import types
 # import os
 
-from typing import Optional, Any
+from typing import Optional
 
 from backend.source.SourceDriver import SourceDriver, SourceState
 from backend.event.SourceEvent import SourceEvent
@@ -67,7 +68,7 @@ class SourceDriverDummy(SourceDriver):
     def getSourceState(self) -> SourceState:
         return SourceState.OK # Dummy connection is always ok
 
-    def __signalHandler(self, signum: signal.Signals, frame: Optional[Any]) -> None: #pylint: disable=no-member
+    def __signalHandler(self, signum: int, frame: Optional[types.FrameType]) -> None: #pylint: disable=no-member
         if signum == signal.SIGALRM:
             self.__triggerAlarm = True
         elif signum == signal.SIGUSR1:

@@ -56,7 +56,7 @@ class PluginManager(Module):
             if source == "sms":
                 if parser == "sms":
                     parserModule = importlib.import_module("backend.source.MessageParserSMS")
-                    parserPlugin = parserModule.MessageParserSMS(instanceName, self.__settings) # type: ignore
+                    parserPlugin = parserModule.MessageParserSMS(instanceName, self.__settings)
                 else:
                     self.fatal(f"Invalid parser plugin {parser} for source plugin {source}")
             else:
@@ -89,13 +89,13 @@ class PluginManager(Module):
                     parserIdentifier = self.__settings.getString("source_sms", "parser", "sms")
                     parserPlugin = self.__loadParserPlugin(source, parserIdentifier)
                     sourceModule = importlib.import_module("backend.source.SourceDriverSMS")
-                    sourcePlugin = sourceModule.SourceDriverSMS(instanceName, self.__settings, parserPlugin) # type: ignore
+                    sourcePlugin = sourceModule.SourceDriverSMS(instanceName, self.__settings, parserPlugin)
                 elif source == "binary":
                     sourceModule = importlib.import_module("backend.source.SourceDriverBinary")
-                    sourcePlugin = sourceModule.SourceDriverBinary(instanceName, self.__settings) # type: ignore # no parser required
+                    sourcePlugin = sourceModule.SourceDriverBinary(instanceName, self.__settings) # no parser required
                 elif source == "dummy":
                     sourceModule = importlib.import_module("backend.source.SourceDriverDummy")
-                    sourcePlugin = sourceModule.SourceDriverDummy(instanceName, self.__settings) # type: ignore # no parser required
+                    sourcePlugin = sourceModule.SourceDriverDummy(instanceName, self.__settings) # no parser required
                 elif source == "scanner":
                     self.fatal("Scanner source plugin not yet implemented")
                 elif source == "webapi":
@@ -130,34 +130,34 @@ class PluginManager(Module):
             try:
                 if action == "search_location":
                     actionModule = importlib.import_module("backend.action.ActionSearchLocation")
-                    actionPlugin = actionModule.ActionSearchLocation(instanceName, self.__settings) # type: ignore
+                    actionPlugin = actionModule.ActionSearchLocation(instanceName, self.__settings)
                 elif action == "update_database":
                     actionModule = importlib.import_module("backend.action.ActionUpdateDatabase")
-                    actionPlugin = actionModule.ActionUpdateDatabase(instanceName, self.__settings, self.__database, self.__webSocket) # type: ignore
+                    actionPlugin = actionModule.ActionUpdateDatabase(instanceName, self.__settings, self.__database, self.__webSocket)
                 elif action == "update_settings":
                     actionModule = importlib.import_module("backend.action.ActionUpdateSettings")
-                    actionPlugin = actionModule.ActionUpdateSettings(instanceName, self.__settings) # type: ignore
+                    actionPlugin = actionModule.ActionUpdateSettings(instanceName, self.__settings)
                 elif action == "update_frontend":
                     actionModule = importlib.import_module("backend.action.ActionUpdateFrontend")
-                    actionPlugin = actionModule.ActionUpdateFrontend(instanceName, self.__settings, self.__webSocket) # type: ignore
+                    actionPlugin = actionModule.ActionUpdateFrontend(instanceName, self.__settings, self.__webSocket)
                 elif action == "update_calendar":
                     actionModule = importlib.import_module("backend.action.ActionUpdateCalendar")
-                    actionPlugin = actionModule.ActionUpdateCalendar(instanceName, self.__settings, self.__webSocket) # type: ignore
+                    actionPlugin = actionModule.ActionUpdateCalendar(instanceName, self.__settings, self.__webSocket)
                 elif action == "activate_screen":
                     actionModule = importlib.import_module("backend.action.ActionActivateScreen")
-                    actionPlugin = actionModule.ActionActivateScreen(instanceName, self.__settings, self.__displayPowerManager) # type: ignore
+                    actionPlugin = actionModule.ActionActivateScreen(instanceName, self.__settings, self.__displayPowerManager)
                 elif action == "send_poweralarm":
                     actionModule = importlib.import_module("backend.action.ActionSendMessagePowerAlarm")
-                    actionPlugin = actionModule.ActionSendMessagePowerAlarm(instanceName, self.__settings) # type: ignore
+                    actionPlugin = actionModule.ActionSendMessagePowerAlarm(instanceName, self.__settings)
                 elif action == "toggle_outlet":
                     actionModule = importlib.import_module("backend.action.ActionToggleOutlet")
-                    actionPlugin = actionModule.ActionToggleOutlet(instanceName, self.__settings) # type: ignore
+                    actionPlugin = actionModule.ActionToggleOutlet(instanceName, self.__settings)
                 elif action == "toggle_output":
                     actionModule = importlib.import_module("backend.action.ActionToggleOutput")
-                    actionPlugin = actionModule.ActionToggleOutput(instanceName, self.__settings) # type: ignore
+                    actionPlugin = actionModule.ActionToggleOutput(instanceName, self.__settings)
                 elif action == "write_file":
                     actionModule = importlib.import_module("backend.action.ActionWriteFile")
-                    actionPlugin = actionModule.ActionWriteFile(instanceName, self.__settings) # type: ignore
+                    actionPlugin = actionModule.ActionWriteFile(instanceName, self.__settings)
                 else:
                     self.fatal(f"Invalid action plugin {action}")
 

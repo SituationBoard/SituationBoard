@@ -16,11 +16,12 @@
 
 import sys
 import os
+import types
 import time
 import argparse
 import signal
 
-from typing import List, Optional, Any
+from typing import List, Optional
 
 from backend.data.Database import Database
 from backend.data.CSVImporter import CSVImporter
@@ -49,7 +50,7 @@ class SituationBoardBackend(Module):
         signal.signal(signal.SIGINT, self.__shutdownHandler)  # a SIGINT signal causes the backend to shutdown
         sys.stdin.close()
 
-    def __shutdownHandler(self, signum: signal.Signals, frame: Optional[Any]) -> None: #pylint: disable=no-member
+    def __shutdownHandler(self, signum: int, frame: Optional[types.FrameType]) -> None: #pylint: disable=no-member
         """The __shutdownHandler handles the SIGTERM/SIGINT signal and terminates the backend."""
         self.clrPrint("Terminating backend")
         # database is committed and closed automatically (via atexit)

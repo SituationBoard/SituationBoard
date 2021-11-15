@@ -173,10 +173,10 @@ class WebSocket(Module):
     def __socket_connect(self) -> None:
         session["ClientID"] = self.clientCount
         self.clientCount += 1
-        self.print(f"Client {session['ClientID']} connected ({request.remote_addr}, {request.sid})") # type: ignore
+        self.print(f"Client {session['ClientID']} connected ({request.remote_addr}, {request.sid})")
 
     def __socket_disconnect(self) -> None:
-        self.print(f"Client {session['ClientID']} disconnected ({request.remote_addr}, {request.sid})") # type: ignore
+        self.print(f"Client {session['ClientID']} disconnected ({request.remote_addr}, {request.sid})")
 
     def __socket_get_last_alarm_events(self, message: Any) -> None:
         self.dbgPrint(f"Answering get_last_alarm_events (Client {session['ClientID']})")
