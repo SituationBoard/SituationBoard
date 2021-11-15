@@ -1,5 +1,6 @@
-Flask
+MarkupSafe==2.0.1
+Flask~=1.1.2
 Flask-SocketIO==5.0.0
-gevent
-gevent-websocket
-geopy
+gevent~=21.1.2
+gevent-websocket~=0.10.1
+geopy~=2.1.0
