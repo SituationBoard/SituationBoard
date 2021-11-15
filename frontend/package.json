@@ -13,16 +13,16 @@
     "name": "Sebastian Maier"
   },
   "dependencies": {
-    "jquery": "latest",
-    "moment": "latest",
+    "jquery": "^3.6.0",
+    "moment": "^2.29.1",
     "socket.io-client": "3.0.4",
-    "rrule": "2.4.1",
-    "ical": "0.8.0"
+    "rrule": "^2.4.1",
+    "ical": "^0.8.0"
   },
   "devDependencies": {
-    "babel-eslint": "latest",
-    "eslint": "latest",
-    "eslint-plugin-html": "latest"
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.25.0",
+    "eslint-plugin-html": "^6.1.2"
   },
   "scripts": {
     "eslint": "eslint --ext=.html,.js -- ."
