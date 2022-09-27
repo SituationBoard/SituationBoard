@@ -1,0 +1,96 @@
+{
+    "Mission": {
+        "AlarmDate": "2021-08-09T15:05:45Z",
+        "AlarmInfo": [
+            "K462-12345"
+        ],
+        "Blaulicht": true,
+        "DispoList": {
+            "4.1.3 FO FL Musterdorf 41/1": "Über-/Hochdrucklüfter",
+            "4.1.3 BA-L FL Bamberg Land 1 Ziegmann": ""
+        },
+        "EinsatzNr": "B 4.1 2108XX XXX",
+        "Einsatzplannr": "Plan Nr. 201",
+        "EinsatztypId": 2,
+        "EinsatztypName": "Brand",
+        "EoAbschnitt": "Haupstraße",
+        "EoHausNr": 1,
+        "EoHausNrKz": null,
+        "EoHausNrZusatz": null,
+        "EoKreuzung": null,
+        "EoObjekte": [
+			{
+				"Name": "4.1.1 BA-S ILS Bamberg-Forchheim",
+				"Nr": null,
+				"NrAlpha": null
+			}
+		],
+        "EoOrt": "Musterdorf Oberfr",
+        "EoOrtsteil": "Musterdorf Oberfr",
+        "EoPlz": "91000",
+        "EoStrasse": "Paradiesweg",
+        "EoX": 4420263.94,
+        "EoY": 5527041.07,
+        "Freitext": "gegen\u00fcber HS NR 25  brennt eine Halle",
+        "Melder": [],
+        "Prioritaet": 1,
+        "Resources": [
+            {
+                "FunkRufname": "Florian Musterdorf 30/1",
+                "FunkRufnameKurz": "FL MUSTER 30/1",
+                "Name": "4.1.3 FO FL Musterdorf 30/1",
+                "Status": null,
+                "ZeitAbD": "2021-08-09T15:11:08Z",
+                "ZeitAbE": null,
+                "ZeitAbZ": "2021-08-09T15:29:25Z",
+                "ZeitAbgezogen": null,
+                "ZeitAl": "2021-08-09T15:05:46Z",
+                "ZeitAnD": "2021-08-09T15:43:17Z",
+                "ZeitAnE": "2021-08-09T15:16:44Z",
+                "ZeitAnZ": null,
+                "ZeitEinsatzBeginn": "2021-08-09T15:11:08Z",
+                "ZeitEinsatzEnde": "2021-08-09T15:43:17Z",
+                "ZeitErstAl": "2021-08-09T15:05:46Z",
+                "Zeit_1": null,
+                "Zeit_2": null
+            },
+            {
+                "FunkRufname": "Florian Musterdorf 40/1",
+                "FunkRufnameKurz": "FL MUSTER 40/1",
+                "Name": "4.1.2 BA-L FL Musterdorf 40/1",
+                "Status": null,
+                "ZeitAbD": "2021-08-09T15:10:04Z",
+                "ZeitAbE": null,
+                "ZeitAbZ": "2021-08-09T15:48:14Z",
+                "ZeitAbgezogen": null,
+                "ZeitAl": "2021-08-09T15:05:48Z",
+                "ZeitAnD": "2021-08-09T15:52:44Z",
+                "ZeitAnE": "2021-08-09T15:16:19Z",
+                "ZeitAnZ": null,
+                "ZeitEinsatzBeginn": "2021-08-09T15:10:04Z",
+                "ZeitEinsatzEnde": "2021-08-09T15:52:44Z",
+                "ZeitErstAl": "2021-08-09T15:05:48Z",
+                "Zeit_1": null,
+                "Zeit_2": null
+            }
+        ],
+        "Schlagwort": "#B1412#Landwirtschaft#Stall / Scheune ",
+        "Status": 0,
+        "StatusText": "LAUFEND",
+        "Stichwoerter": [
+            null,
+            {
+                "Category": null,
+                "Name": "B 4",
+                "Type": "Brand"
+            },
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+        "Tetra": "SoG_1_BA"
+    },
+    "MissionId": 14800000
+}

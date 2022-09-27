@@ -32,7 +32,6 @@ class SourceDriverSMS(SourceDriver):
         self.__allowlist   = self.getSettingList("allowlist", [])
         self.__denylist   = self.getSettingList("denylist", [])
         self.__lastEvent: Optional[SourceEvent] = None
-        self.__lastSourceState: Optional[SourceState] = None
 
         self.__gsm = gammu.StateMachine()
         try:
@@ -174,18 +173,11 @@ class SourceDriverSMS(SourceDriver):
             except Exception:
                 pass
 
-        if self.__lastSourceState is None or self.__lastSourceState != sourceState:
-            if sourceState == SourceState.OK:
-                self.clrPrint(f"Source state changed to {sourceState.name}")
-            else:
-                self.error(f"Source state changed to {sourceState.name}")
-
+        if self.logSourceStateChange(sourceState):
             if self.isDebug() and networkInfo is not None:
                 self.dbgPrint(f"Network info: {networkInfo}")
 
             if self.isDebug() and networkSignal is not None:
                 self.dbgPrint(f"Network signal: {networkSignal}")
-
-            self.__lastSourceState = sourceState
 
         return sourceState

@@ -40,8 +40,8 @@ class AlarmEvent(SourceEvent):
         self.comment            = ""
         self.alarmTimestamp     = ""
 
-        self.locationLatitude   = 0.0
-        self.locationLongitude  = 0.0
+        self.locationLatitude   = 0.0 # north/south (-> Y)
+        self.locationLongitude  = 0.0 # east/west   (-> X)
 
         self.flags              = AlarmEvent.FLAGS_INVALID
 

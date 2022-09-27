@@ -47,6 +47,8 @@ class SourceDriver(Plugin):
         :param multipleInstances: boolean that specifies whether multiple (named) instances of this source plugin are supported"""
         super().__init__(SourceDriver.PLUGIN_TYPE, sourcePluginName, instanceName, settings, multipleInstances)
         self.parser = parser
+        self.__lastSourceState: Optional[SourceState] = None
+
 
     def retrieveEvent(self) -> Optional[SourceEvent]:
         """This method is called periodically by the background task in order to
@@ -68,6 +70,22 @@ class SourceDriver(Plugin):
 
         :return: SourceState (e.g. SourceState.OK or SourceState.ERROR)"""
         return SourceState.ERROR
+
+    def logSourceStateChange(self, sourceState: SourceState) -> bool:
+        #TODO: add documentation !!!
+        changed = False
+
+        if self.__lastSourceState is None or self.__lastSourceState != sourceState:
+            changed = True
+
+            if sourceState == SourceState.OK:
+                self.clrPrint(f"Source state changed to {sourceState.name}")
+            else:
+                self.error(f"Source state changed to {sourceState.name}")
+
+        self.__lastSourceState = sourceState
+
+        return changed
 
     @staticmethod
     def isSenderAllowed(allowlist: List[str], denylist: List[str], sender: str) -> bool:

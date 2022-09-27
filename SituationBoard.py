@@ -33,6 +33,18 @@ from backend.util.PluginManager import PluginManager
 from backend.util.Module import Module
 from backend.api.WebSocket import WebSocket
 
+#TODO: update default config (add defaults for new source/parser plugins)
+
+#TODO: allow to config which alarm sources to prefere and which to view in list and count in statistics
+
+#TODO: add local changes of Event class and datetime handling/converters/... (where? Virtual Machine ?!? MacBook Pro Desktop ?!?)
+
+#TODO: add mail parser etc. ?!?
+
+#TODO: add late receive patch for SMS source and parser
+
+#TODO: double check TODOs from local TODO file (MacBook Pro -> Basti -> Documents -> Vereine -> Feuerwehr -> ...)
+
 class SituationBoardBackend(Module):
     """The SituationBoardBackend class represents the core of the backend service.
     It initializes the different subsystems and implements core application logic

@@ -30,6 +30,8 @@ from backend.data.Database import Database, DatabaseTimespan
 from backend.source.SourceDriver import SourceState
 from backend.event.AlarmEvent import AlarmEvent
 
+#TODO: add API key (in header) for web API (support multiple API keys ?!?)
+
 class WebSocket(Module):
     """The WebSocket class is responsible for handling the websocket connection between frontend and backend.
     In addition, it also serves the web frontend and provides the web client with all the static files."""
@@ -62,7 +64,7 @@ class WebSocket(Module):
     def init(self, pluginManager: PluginManager) -> None:
         self.pluginManager = pluginManager
 
-        # register flask handlers
+        # register flask handlers #TODO: let plugins register themselves as handlers ?!?
         self.app.after_request(self.__app_add_header)
         self.app.add_url_rule('/<path:path>',                  'send_static',          self.__app_send_static)
         self.app.add_url_rule('/',                             'index',                self.__app_index)
@@ -74,7 +76,7 @@ class WebSocket(Module):
             self.app.add_url_rule('/api/v1/stats',             'api_stats',            self.__api_stats)
             self.app.add_url_rule('/api/v1/state',             'api_state',            self.__api_state)
 
-        # register socket io handlers
+        # register socket io handlers #TODO: let plugins register themselves as handlers ?!?
         self.socketio.on_event("connect", self.__socket_connect, WebSocket.NS)
         self.socketio.on_event("disconnect", self.__socket_disconnect, WebSocket.NS)
         self.socketio.on_event("get_last_alarm_events", self.__socket_get_last_alarm_events, WebSocket.NS)
@@ -82,6 +84,13 @@ class WebSocket(Module):
         self.socketio.on_event("get_header", self.__socket_get_header, WebSocket.NS)
         self.socketio.on_event("get_news", self.__socket_get_news, WebSocket.NS)
         self.socketio.on_event("get_state", self.__socket_get_state, WebSocket.NS)
+
+    def register_url_handler(self, rule: str, endpoint: Optional[str] = ...,
+            view_func: Callable = ..., provide_automatic_options: Optional[bool] = ..., **options: Any,) -> None:
+        self.app.add_url_rule(rule, endpoint, view_func, provide_automatic_options, **options)
+
+    def register_websocket_handler(self, message: str, handler: Callable, namespace=None) -> None:
+        self.socketio.on_event(message, handler, namespace)
 
     def sleep(self, duration: int) -> None:
         self.socketio.sleep(duration)

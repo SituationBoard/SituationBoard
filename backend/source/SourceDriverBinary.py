@@ -71,4 +71,6 @@ class SourceDriverBinary(SourceDriver):
         return alarmEvent
 
     def getSourceState(self) -> SourceState:
-        return SourceState.OK
+        sourceState = SourceState.OK # Binary source is always ok
+        self.logSourceStateChange(sourceState)
+        return sourceState

@@ -66,7 +66,9 @@ class SourceDriverDummy(SourceDriver):
         return None
 
     def getSourceState(self) -> SourceState:
-        return SourceState.OK # Dummy connection is always ok
+        sourceState = SourceState.OK # Dummy source is always ok
+        self.logSourceStateChange(sourceState)
+        return sourceState
 
     def __signalHandler(self, signum: int, frame: Optional[types.FrameType]) -> None: #pylint: disable=no-member
         if signum == signal.SIGALRM:

@@ -59,6 +59,13 @@ class PluginManager(Module):
                     parserPlugin = parserModule.MessageParserSMS(instanceName, self.__settings)
                 else:
                     self.fatal(f"Invalid parser plugin {parser} for source plugin {source}")
+            elif source == "webapi":
+                if parser == "edi":
+                    parserModule = importlib.import_module("backend.source.MessageParserEDI")
+                    parserPlugin = parserModule.MessageParserEDI(instanceName, self.__settings)
+                else:
+                    self.fatal(f"Invalid parser plugin {parser} for source plugin {source}")
+
             else:
                 self.fatal(f"No parser plugin available/required for source plugin {source}")
 
@@ -86,7 +93,7 @@ class PluginManager(Module):
 
             try:
                 if source == "sms":
-                    parserIdentifier = self.__settings.getString("source_sms", "parser", "sms")
+                    parserIdentifier = self.__settings.getString("source_sms", "parser", "sms") #TODO: IMPORTANT: fix section when instance name is used
                     parserPlugin = self.__loadParserPlugin(source, parserIdentifier)
                     sourceModule = importlib.import_module("backend.source.SourceDriverSMS")
                     sourcePlugin = sourceModule.SourceDriverSMS(instanceName, self.__settings, parserPlugin)
@@ -96,10 +103,13 @@ class PluginManager(Module):
                 elif source == "dummy":
                     sourceModule = importlib.import_module("backend.source.SourceDriverDummy")
                     sourcePlugin = sourceModule.SourceDriverDummy(instanceName, self.__settings) # no parser required
+                elif source == "webapi":
+                    parserIdentifier = self.__settings.getString("source_webapi", "parser", "edi") #TODO: IMPORTANT: fix section when instance name is used
+                    parserPlugin = self.__loadParserPlugin(source, parserIdentifier)
+                    sourceModule = importlib.import_module("backend.source.SourceDriverWebAPI")
+                    sourcePlugin = sourceModule.SourceDriverWebAPI(instanceName, self.__settings, self.__webSocket, parserPlugin)
                 elif source == "scanner":
                     self.fatal("Scanner source plugin not yet implemented")
-                elif source == "webapi":
-                    self.fatal("Web API source plugin not yet implemented")
                 elif source == "fax":
                     self.fatal("Fax source plugin not yet implemented")
                 elif source == "mail":

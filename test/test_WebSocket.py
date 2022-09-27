@@ -28,6 +28,8 @@ from backend.util.DisplayPowerManager import DisplayPowerManager
 from backend.util.PluginManager import PluginManager
 from backend.event.AlarmEvent import AlarmEvent
 
+#TODO: test web API with valid and invalid API key
+
 class Test_WebSocket:
 
     def setup_class(self) -> None:
