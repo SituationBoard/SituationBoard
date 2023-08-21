@@ -90,7 +90,7 @@ class WebSocket(Module):
         self.btask = self.socketio.start_background_task(target=target)
 
     def __broadcast(self, event: str, data: Dict[str, Any]) -> None:
-        self.socketio.emit(event, data, namespace=WebSocket.NS, broadcast=True)
+        self.socketio.emit(event, data, namespace=WebSocket.NS)
 
     def run(self) -> None:
         port = self.settings.getBackendServerPort()
