@@ -30,9 +30,6 @@
 #  Includes and Definitions
 ###################################################################
 
-readonly XORG_SRC_FILE=$SBSETUP/xorg.conf
-readonly XORG_DST_FILE=/etc/X11/xorg.conf
-
 readonly SERVICE_SRC_FILE=$SBSETUP/$SBSERVICE
 readonly SERVICE_DST_FILE=/etc/systemd/system/$SBSERVICE
 
@@ -53,14 +50,6 @@ setup_ask_autostart() {
 }
 
 setup_install_autostart() {
-  setup_print_step "Disable screen sleep"
-  if [[ ! -f "$XORG_DST_FILE" ]] || ! grep -q "SITUATIONBOARD" "$XORG_DST_FILE"; then # only append once
-    tee -a "$XORG_DST_FILE" < "$XORG_SRC_FILE" > /dev/null
-    check_result_done $?
-  else
-    echo_ok "Already disabled."
-  fi
-
   setup_print_step "Install unclutter"
   apt-get install --yes unclutter > /dev/null
   check_result_done $?
@@ -103,10 +92,6 @@ setup_install_autostart() {
 }
 
 setup_remove_autostart() {
-  setup_print_step "Remove screen sleep adjustments"
-  sed -i '/#SITUATIONBOARD_BEGIN/,/#SITUATIONBOARD_END/d' "$XORG_DST_FILE"
-  check_result_done $?
-
   setup_print_step "Remove SituationBoard systemd service"
   if pidof systemd > /dev/null; then
     # system is using systemd
