@@ -1,6 +1,6 @@
 {
   "name": "situationboard",
-  "version": "1.13.0",
+  "version": "1.14.0",
   "description": "SituationBoard - Alarm Display for Fire Departments",
   "license": "AGPL-3.0",
   "type": "module",
@@ -13,11 +13,11 @@
     "name": "Sebastian Maier"
   },
   "dependencies": {
+    "ical": "^0.8.0",
     "jquery": "^3.6.0",
     "moment": "^2.29.1",
-    "socket.io-client": "3.0.4",
     "rrule": "^2.4.1",
-    "ical": "^0.8.0"
+    "socket.io-client": "3.0.4"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",

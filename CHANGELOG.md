@@ -5,6 +5,12 @@ This changelog lists the changes of all the SituationBoard versions.
 Breaking changes (e.g. regarding configuration, database and CSV) always come with a version bump.
 In contrast, minor changes/bugfixes might not come with a new version number.
 
+## Version 1.14 (2023-08-21)
+
+- Fix websocket bug in backend
+- Update frontend dependencies (OpenLayers)
+- Replace xorg.conf with xset call at runtime
+
 ## Version 1.13 (2022-09-27)
 
 - Introduce a generic list view widget
