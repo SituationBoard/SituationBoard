@@ -33,10 +33,10 @@ export default class MapsOSMWidgetOpenLayers extends MapsOSMWidget {
     __load() {
         $("<link/>", {
            rel: "stylesheet", type: "text/css",
-           href: "https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css"
+           href: "https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.4.3/css/ol.css"
         }).appendTo("head");
 
-        $.getScript("https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js", () => {
+        $.getScript("https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.4.3/build/ol.js", () => {
             // adjust attributions size and style
             $(`<style>
                 .ol-attribution {
