@@ -1,0 +1,11 @@
+{
+  "result": {
+    "event": "B - Mülleimer oder Papierkorb",
+    "eventDetails": "B 1 /  /  /",
+    "location": "Musterstraße 0\n12345 MUSTER-DORF",
+    "locationDetails": "OT: Musterhausen\nObjekt: Straba HP Musterhausen",
+    "comment": "Brennender Papierkorb #\n\n\n\n",
+    "locationLatitude": "51.163375",
+    "locationLongitude": "10.447683"
+  }
+}
