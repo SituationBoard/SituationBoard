@@ -24,6 +24,7 @@ class ActionUpdateSettings(Action):
 
     def __init__(self, instanceName: str, settings: Settings):
         super().__init__("update_settings", instanceName, settings)
+        self.__storeChanges = self.getSettingBoolean("store_changes", True)
 
     def handleEvent(self, sourceEvent: SourceEvent) -> None:
         if isinstance(sourceEvent, SettingEvent):
@@ -35,10 +36,12 @@ class ActionUpdateSettings(Action):
             if settingName == "header":
                 self.print(f"Updating setting {settingName} with value {settingValueSingleLine}")
                 self.settings.setFrontendHeader(settingValue)
-                self.settings.store()
+                if self.__storeChanges:
+                    self.settings.store()
             elif settingName == "news":
                 self.print(f"Updating setting {settingName} with value {settingValueSingleLine}")
                 self.settings.setFrontendNews(settingValue)
-                self.settings.store()
+                if self.__storeChanges:
+                    self.settings.store()
             else:
                 self.error(f"Invalid setting {settingName} (value: {settingValueSingleLine})")
