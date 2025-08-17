@@ -252,7 +252,12 @@ It should always be the second action and does not offer any settings.
 
 ### Update Settings Action (should be 3rd)
 The ```update_settings``` action is responsible to adjust settings (like the header or news in the frontend) when special messages are received.
-It should always be the third action and does not offer any settings.
+It should always be the third action since it might update settings that are visible in the frontend.
+It is configured in the ```[action:update_settings]``` section and has the following settings:
+
+| Setting                      | Description                                                                                                                                                       | Default Value                 |
+|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------|
+| store_changes                | Store changes to config file                                                                                                                                      | True                          |
 
 ### Update Frontend Action (should be 4th)
 The ```update_frontend``` action is responsible to update the frontend and show the alarm view when an alarm is detected.
