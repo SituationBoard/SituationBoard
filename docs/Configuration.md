@@ -7,7 +7,7 @@ Within each section individual settings are specified in form of key/value pairs
 [section]
 key = value
 # some comment
-``` 
+```
 
 In addition to the settings stated below, all source and action plugins also feature a ```debug``` setting that can be used (```debug = True```) to enable plugin specific debug messages.
 
@@ -123,7 +123,7 @@ a network card and as an actual modem). These different modes are often represen
 | Cellular USB Modem          | Vendor ID | Vendor                         | Product ID | Product                                      | Device Mode    | Comment                                                  |
 |-----------------------------|-----------|--------------------------------|------------|----------------------------------------------|----------------|----------------------------------------------------------|
 | **Huawei E303 (51077742)**  | **12d1**  | Huawei Technologies Co., Ltd.  | **1506**   | Modem/Networkcard                            | **modem**      | required mode (default and only mode)                    |
-| **Huawei E303 (51070NQP)**  | **12d1**  | Huawei Technologies Co., Ltd.  | 1f01       | E353/E3131 (Mass storage mode)               | storage device | default mode (without usb_modeswitch)                    | 
+| **Huawei E303 (51070NQP)**  | **12d1**  | Huawei Technologies Co., Ltd.  | 1f01       | E353/E3131 (Mass storage mode)               | storage device | default mode (without usb_modeswitch)                    |
 |                             |           |                                | 14dc       | E33372 LTE/UMTS/GSM HiLink Modem/Networkcard | network card   | default target mode (with stock usb_modeswitch)          |
 |                             |           |                                | **1001**   | E161/E169/E620/E800 HSDPA Modem              | **modem**      | required mode (enforced with custom usb_modeswitch file) |
 
