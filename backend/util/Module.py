@@ -101,7 +101,7 @@ class Module:
                 styleOn  = ""
                 styleOff = ""
 
-            exceptionInfo = traceback.format_exception(etype=type(exception), value=exception, tb=exception.__traceback__)
+            exceptionInfo = traceback.format_exception(type(exception), value=exception, tb=exception.__traceback__)
             exceptionText = "".join(exceptionInfo)
             print(f"{styleOn}{exceptionText}{styleOff}", file=sys.stderr)
 
