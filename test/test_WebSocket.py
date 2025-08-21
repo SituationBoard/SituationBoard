@@ -168,10 +168,10 @@ class Test_WebSocket:
         assert(state['source_state'] == SourceState.OK)
 
     def __emit(self, event: str, args: Optional[Dict[str, Any]] = None) -> None:
-        if args is not None:
-            self.socketClient.emit(event, args, namespace=WebSocket.NS)
-        else:
+        if args is None:
             self.socketClient.emit(event, namespace=WebSocket.NS)
+        else:
+            self.socketClient.emit(event, args, namespace=WebSocket.NS)
 
     def __getReceived(self) -> Tuple[Any, Any]:
         response = self.socketClient.get_received(WebSocket.NS)

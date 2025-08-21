@@ -43,7 +43,7 @@ class SourceDriverSMS(SourceDriver):
         except gammu.ERR_DEVICENOTEXIST:
             self.fatal("Modem device is not available")
         except Exception as e:
-            self.fatal("Could not initialize SMS driver", e)
+            self.fatal(f"Could not initialize SMS driver ({e})")
 
         # make sure we log changes of the source state as early as possible
         self.getSourceState()

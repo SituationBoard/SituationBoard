@@ -32,7 +32,7 @@ class Plugin(Module):
 
     existingInstances: Dict[str, List[str]] = {}
 
-    def __init__(self, pluginType: str, pluginName: str, instanceName: str, settings: 'Settings', multipleInstances: bool = False) -> None:
+    def __init__(self, pluginType: str, pluginName: str, instanceName: str, settings: 'Settings', multipleInstances: bool = False) -> None: #pylint: disable=too-many-positional-arguments
         """Constructs a Plugin of a certain type with a specific name and access to settings and initializes it.
 
         :param pluginType: string representing the type as specified by subclasses of Plugin (like SourceDriver, MessageParser and Action)
