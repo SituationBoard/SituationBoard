@@ -81,7 +81,9 @@ set -o nounset   # do not allow unset variables (-u)
 set -o pipefail  # fail if any command in a pipeline fails
 
 # determine script location
+# shellcheck disable=SC2155
 readonly SCRIPT_FILENAME=$(readlink -f "${BASH_SOURCE[0]}")
+# shellcheck disable=SC2155
 readonly SCRIPT_PATH=$(dirname "$SCRIPT_FILENAME")
 # shellcheck source=misc/sbctl/utils.sh
 source "$SCRIPT_PATH/misc/sbctl/utils.sh"
