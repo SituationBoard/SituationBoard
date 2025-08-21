@@ -31,7 +31,9 @@
 ###################################################################
 
 # SituationBoard environment
+# shellcheck disable=SC2155
 readonly SBUSER=$(stat -c '%U' "$SCRIPT_FILENAME")
+# shellcheck disable=SC2155
 readonly SBHOME=$(getent passwd "$SBUSER" | cut -d: -f6)
 
 # Requested features
