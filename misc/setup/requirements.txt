@@ -1,6 +1,7 @@
-MarkupSafe==2.0.1
-Flask~=1.1.2
-Flask-SocketIO==5.0.0
-gevent~=21.1.2
+MarkupSafe==3.0.2
+Flask~=3.1.1
+Flask-SocketIO==5.5.1
+gevent~=25.5.1
 gevent-websocket~=0.10.1
-geopy~=2.1.0
+geopy~=2.4.1
+requests~=2.32.4
