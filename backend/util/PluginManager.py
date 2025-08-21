@@ -93,6 +93,10 @@ class PluginManager(Module):
                 elif source == "binary":
                     sourceModule = importlib.import_module("backend.source.SourceDriverBinary")
                     sourcePlugin = sourceModule.SourceDriverBinary(instanceName, self.__settings) # no parser required
+                elif source == "divera":
+                    lastAlarmEvent = self.__database.getLastEventFromSource(SourceEvent.SOURCE_DIVERA) # retrieve last alarm event from DB
+                    sourceModule = importlib.import_module("backend.source.SourceDriverDivera")
+                    sourcePlugin = sourceModule.SourceDriverDivera(instanceName, self.__settings, lastAlarmEvent) # provide last alarm event; no parser required
                 elif source == "dummy":
                     sourceModule = importlib.import_module("backend.source.SourceDriverDummy")
                     sourcePlugin = sourceModule.SourceDriverDummy(instanceName, self.__settings) # no parser required

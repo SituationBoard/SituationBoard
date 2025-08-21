@@ -26,6 +26,7 @@ class SourceEvent:
     SOURCE_DUMMY     = "DUMMY"
     SOURCE_MAIL      = "MAIL"
     SOURCE_SMS       = "SMS"
+    SOURCE_DIVERA    = "DIVERA"
     SOURCE_FAX       = "FAX"
     SOURCE_WEBAPI    = "WEBAPI"
     SOURCE_SCANNER   = "SCANNER"
