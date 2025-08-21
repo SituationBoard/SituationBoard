@@ -168,6 +168,24 @@ Bem: Längere Ölspur
 Beginn kurz vor Aussiedlerhof
 ```
 
+### Divera Source
+The `divera` source allows to retrieve alarms from the web API of the [Divera 24/7](https://www.divera247.com) alarm service.
+Alongside the actual alarm infos it is also possible to retrieve the responses of crew members to an alarm and the current status of vehicles.
+The Divera source is configured in the ```[source:divera]``` section and has the following settings:
+
+| Setting                      | Description                                                                                                                                                       | Default Value                 |
+|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------|
+| **api_key**                  | API key (also called access key by Divera) of the organization (required)                                                                                         | ""                            |
+| timeout                      | Request timeout (in seconds)                                                                                                                                      | 5 seconds                     |
+| api_url                      | URL of the API (adjust only when testing with a manual mock API setup)                                                                                            | "https://www.divera247.com"   |
+| use_mock_api                 | Use mock API instead of the specified API URL to simulate alarm events (starts a local mock API server; ignores the specified api_url and api_key)                | False                         |
+| ignore_test_alarm            | Ignore test alarms (i.e. alarms with an author_id of 0)                                                                                                           | False                         |
+| **show_vehicle_status**      | Update the news setting with the current status of the vehicles to show it in the standby view                                                                    | True                          |
+| **show_crew_responses**      | Append the crew responses to the comment of the alarm event to show them in the alarm view                                                                        | True                          |
+| response_id_fast             | Identifier used for responses that signal fast availability of a crew member (< 5 min)                                                                            | "99148"                       |
+| response_id_slow             | Identifier used for responses that signal slow availability of a crew member (< 10 min)                                                                           | "99149"                       |
+| response_id_na               | Identifier used for responses that signal no availability of a crew member (n/a)                                                                                  | "99150"                       |
+
 ### Binary Source
 The ```binary``` source allows to detect alarm events based on a GPIO input of the Raspberry Pi.
 A typical use case for the ```binary``` source is to connect a pager as alarm source (e.g. as fallback or to forward alarm events to emergency personnel).
