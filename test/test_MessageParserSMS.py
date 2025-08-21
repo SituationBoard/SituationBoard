@@ -55,7 +55,7 @@ class Test_MessageParserSMS:
         sourceEvent.timestamp = timestamp if timestamp != "" else self.defaultTimestamp
         return sourceEvent
 
-    def __check_original(self, sourceEvent: SourceEvent, raw: str, sender: str = "", timestamp: str = "", source: str = "") -> None:
+    def __check_original(self, sourceEvent: SourceEvent, raw: str, sender: str = "", timestamp: str = "", source: str = "") -> None: #pylint: disable=too-many-positional-arguments
         source = source if source != "" else SourceEvent.SOURCE_SMS
         sender = sender if sender != "" else self.defaultSender
         timestamp = timestamp if timestamp != "" else self.defaultTimestamp

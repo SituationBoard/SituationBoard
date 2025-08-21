@@ -37,7 +37,7 @@ class SourceDriver(Plugin):
 
     PLUGIN_TYPE = "source"
 
-    def __init__(self, sourcePluginName: str, instanceName: str, settings: Settings, parser: Optional[MessageParser] = None, multipleInstances: bool = False) -> None:
+    def __init__(self, sourcePluginName: str, instanceName: str, settings: Settings, parser: Optional[MessageParser] = None, multipleInstances: bool = False) -> None: #pylint: disable=too-many-positional-arguments
         """Constructs a SourceDriver plugin with a unique source name and access to settings and initializes it.
 
         :param sourcePluginName: string representing a unique source plugin name
