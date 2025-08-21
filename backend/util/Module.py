@@ -17,6 +17,8 @@
 import sys
 import traceback
 
+#TODO: configure globally whether we want to print backtraces
+
 from typing import Optional, NoReturn, TYPE_CHECKING
 
 if TYPE_CHECKING:
