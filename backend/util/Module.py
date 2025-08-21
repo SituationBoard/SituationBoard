@@ -87,7 +87,7 @@ class Module:
             else:
                 print(f"{modStyleOn}{smn}:{modStyleOff} {styleOn}{message}{styleOff}", flush=True)
 
-    def __printException(self, exception: Optional[Exception], style: str = "") -> None:
+    def __printException(self, exception: Optional[Exception], style: str = "", printTrace: bool = True) -> None:
         if exception is None:
             return
 
@@ -101,9 +101,12 @@ class Module:
                 styleOn  = ""
                 styleOff = ""
 
-            exceptionInfo = traceback.format_exception(type(exception), value=exception, tb=exception.__traceback__)
-            exceptionText = "".join(exceptionInfo)
-            print(f"{styleOn}{exceptionText}{styleOff}", file=sys.stderr)
+            if printTrace:
+                exceptionInfo = traceback.format_exception(type(exception), value=exception, tb=exception.__traceback__)
+                exceptionText = "".join(exceptionInfo)
+                print(f"{styleOn}{exceptionText}{styleOff}", file=sys.stderr)
+            else:
+                print(f"{styleOn}{exception}{styleOff}", file=sys.stderr)
 
     def isDebug(self) -> bool:
         """Returns whether the module is in debug mode (True) or not (False).
@@ -121,13 +124,14 @@ class Module:
         :param message: string representing the message to be printed"""
         self.__printMessage(message)
 
-    def error(self, message: str, exception: Optional[Exception] = None) -> None:
+    def error(self, message: str, exception: Optional[Exception] = None, printTrace: bool = True) -> None:
         """Prints a error message of a non-fatal error (and an exception if given).
 
         :param message: string representing the error message to be printed
-        :param exception: Exception that caused the error (optional)"""
+        :param exception: Exception that caused the error (optional)
+        :param printTrace: determines whether a stack trace is printed (default)"""
         self.__printMessage(message, Module.OUTPUT_YELLOW, True)
-        self.__printException(exception, Module.OUTPUT_YELLOW)
+        self.__printException(exception, Module.OUTPUT_YELLOW, printTrace)
 
     def fatal(self, message: str, exception: Optional[Exception] = None, status: int = 1) -> NoReturn:
         """Prints an error message of a fatal error (and an exception if given)

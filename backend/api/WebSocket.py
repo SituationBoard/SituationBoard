@@ -56,7 +56,7 @@ class WebSocket(Module):
         self.app = Flask(self.appInfo.name, static_url_path='', static_folder=WebSocket.FF, template_folder=WebSocket.FF)
         self.app.config['SECRET_KEY'] = 'secret!'
 
-        self.socketio = SocketIO(self.app, async_mode=WebSocket.SOCKETIO_ASYNC_MODE)
+        self.socketio = SocketIO(self.app, async_mode=WebSocket.SOCKETIO_ASYNC_MODE) # type: ignore[arg-type]
         self.btask: Any = None
 
     def init(self, pluginManager: PluginManager) -> None:
@@ -170,13 +170,13 @@ class WebSocket(Module):
         self.dbgPrint("Answering state Web API request")
         return { 'result': 'ok', 'state': self.__get_state_dict() }
 
-    def __socket_connect(self) -> None:
+    def __socket_connect(self, _: Any) -> None:
         session["ClientID"] = self.clientCount
         self.clientCount += 1
-        self.print(f"Client {session['ClientID']} connected ({request.remote_addr}, {request.sid})")
+        self.print(f"Client {session['ClientID']} connected ({request.remote_addr}, {request.sid})") # type: ignore[attr-defined]
 
-    def __socket_disconnect(self) -> None:
-        self.print(f"Client {session['ClientID']} disconnected ({request.remote_addr}, {request.sid})")
+    def __socket_disconnect(self, _: Any) -> None:
+        self.print(f"Client {session['ClientID']} disconnected ({request.remote_addr}, {request.sid})") # type: ignore[attr-defined]
 
     def __socket_get_last_alarm_events(self, message: Any) -> None:
         self.dbgPrint(f"Answering get_last_alarm_events (Client {session['ClientID']})")
@@ -195,19 +195,19 @@ class WebSocket(Module):
             'alarm_events': json.dumps([alarmEvent.toJSON() for alarmEvent in alarmEvents])
         })
 
-    def __socket_get_stats(self) -> None:
+    def __socket_get_stats(self, _: Any) -> None:
         self.dbgPrint(f"Answering get_stats (Client {session['ClientID']})")
         emit('stats', self.__get_stats_dict())
 
-    def __socket_get_state(self) -> None:
+    def __socket_get_state(self, _: Any) -> None:
         # self.dbgPrint(f"Answering get_state (Client {session['ClientID']})")
         emit('state', self.__get_state_dict())
 
-    def __socket_get_header(self) -> None:
+    def __socket_get_header(self, _: Any) -> None:
         self.dbgPrint(f"Answering get_header (Client {session['ClientID']})")
         emit('header', {'header': self.settings.getFrontendHeader()})
 
-    def __socket_get_news(self) -> None:
+    def __socket_get_news(self, _: Any) -> None:
         self.dbgPrint(f"Answering get_news (Client {session['ClientID']})")
         emit('news', {'news': self.settings.getFrontendNews()})
 
