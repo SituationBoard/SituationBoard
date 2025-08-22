@@ -302,6 +302,17 @@ class Database(Module):
         result = cursor.fetchall()
         return self.__initAlarmEventList(result)
 
+    def getLastEventFromSource(self, source: str) -> Optional[AlarmEvent]:
+        if self.__conn is None: self.__assertInitializedFailed() # return None
+
+        query = "SELECT * FROM alarmevents WHERE SOURCE = ? ORDER BY id DESC LIMIT 1"
+        cursor = self.__conn.execute(query, (source,))
+        result = cursor.fetchone()
+        if result is not None:
+            return Database.__alarmEventFromList(result)
+
+        return None
+
     def getEventCount(self, textOnly: bool) -> int:
         if self.__conn is None: self.__assertInitializedFailed() # return 0
 
