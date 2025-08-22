@@ -110,7 +110,7 @@ class Database(Module):
             conn = sqlite3.connect(filename)
             return conn
         except sqlite3.Error as e:
-            self.fatal(f"Failed to open database ({filename})", e)
+            self.fatal(f"Failed to open database {filename} ({e})")
 
     def __createNewDatabase(self, filename: str) -> sqlite3.Connection:
         self.print("Creating a new database")
@@ -119,14 +119,14 @@ class Database(Module):
             conn.executescript(Database.SCHEMA)
             return conn
         except sqlite3.Error as e:
-            self.fatal(f"Failed to create database ({filename})", e)
+            self.fatal(f"Failed to create database {filename} ({e})")
 
     def __deleteExistingDatabase(self, filename: str) -> None:
         self.print("Deleting existing database")
         try:
             os.remove(filename)
-        except Exception:
-            self.fatal(f"Failed to delete existing database ({filename})")
+        except Exception as e:
+            self.fatal(f"Failed to delete existing database {filename} ({e})")
 
     def __getAppID(self) -> int:
         if self.__conn is None: self.__assertInitializedFailed() # return 0
@@ -225,7 +225,7 @@ class Database(Module):
                 self.print(f"Added alarm event #{alarmEvent.eventID}")
             return alarmEvent.eventID
         except sqlite3.Error as e:
-            self.error("Could not add alarm event", e)
+            self.error(f"Could not add alarm event ({e})")
             return -1
 
     def updateEvent(self, alarmEvent: AlarmEvent, verbose: bool = True) -> int:
@@ -245,7 +245,7 @@ class Database(Module):
                 self.print(f"Updated alarm event #{alarmEvent.eventID}")
             return 0
         except sqlite3.Error as e:
-            self.error(f"Could not update alarm event #{alarmEvent.eventID}", e)
+            self.error(f"Could not update alarm event #{alarmEvent.eventID} ({e})")
             return -1
 
     def removeEvent(self, alarmEvent: AlarmEvent) -> int:
@@ -266,7 +266,7 @@ class Database(Module):
                 self.print(f"Removed alarm event #{eventID}")
             return 0
         except sqlite3.Error as e:
-            self.error(f"Could not remove alarm event #{eventID}", e)
+            self.error(f"Could not remove alarm event #{eventID} ({e})")
             return -1
 
     def getEvent(self, eventID: int) -> Optional[AlarmEvent]:
@@ -301,6 +301,17 @@ class Database(Module):
         cursor = self.__conn.execute(query, (count,))
         result = cursor.fetchall()
         return self.__initAlarmEventList(result)
+
+    def getLastEventFromSource(self, source: str) -> Optional[AlarmEvent]:
+        if self.__conn is None: self.__assertInitializedFailed() # return None
+
+        query = "SELECT * FROM alarmevents WHERE SOURCE = ? ORDER BY id DESC LIMIT 1"
+        cursor = self.__conn.execute(query, (source,))
+        result = cursor.fetchone()
+        if result is not None:
+            return Database.__alarmEventFromList(result)
+
+        return None
 
     def getEventCount(self, textOnly: bool) -> int:
         if self.__conn is None: self.__assertInitializedFailed() # return 0
