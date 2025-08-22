@@ -1,0 +1,11 @@
+{
+  "regexes": {
+    "event": "Schlagwort\\s+:\\s+([\\w\\s]*)\\r\\n",
+    "eventDetails": "Stichwort\\s+:\\s+([/\\w\\s]*)\\r\\n\\r\\n",
+    "location": "Straße\\s+:\\s([\\w\\s]*)\\r\\n\\s+Ort\\s+:\\s(\\d*)\\s([\\w\\s]*)\\r\\n\\s+Ortsteil\\s*:\\s*([\\w\\s]*)\\r\\n",
+    "locationDetails": "Objekt\\s*:\\s([\\w\\s]*)\\n\\s+Einsatzplan\\s+:\\s([\\w\\s]*)\\n",
+    "comment": "-+\\s+BEMERKUNG\\s+-+\\r\\n\\r\\n\\s+([:\\s\\w\\n]*)",
+    "locationLatitude": "https://www\\.google\\.de/maps/place/(\\d+\\.\\d+),\\d+\\.\\d+",
+    "locationLongitude": "https://www\\.google\\.de/maps/place/\\d+\\.\\d+,(\\d+\\.\\d+)"
+  }
+}
