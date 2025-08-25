@@ -5,6 +5,18 @@ This changelog lists the changes of all the SituationBoard versions.
 Breaking changes (e.g. regarding configuration, database and CSV) always come with a version bump.
 In contrast, minor changes/bugfixes might not come with a new version number.
 
+## Version 1.15 (2025-08-29)
+
+- Add source driver for the Divera 24/7 API
+- Correct handling of updated and outdated alarm events
+- Update GPIO support to work with new Raspberry Pi versions
+- Update various dependencies and make related adjustments
+- Improve automatic screen activation and CEC support
+- Make storing of setting updates optional
+- Make location search in frontend optional
+- Adjust features installed by default
+- Update and improve documentation
+
 ## Version 1.14 (2023-08-21)
 
 - Fix websocket bug in backend
