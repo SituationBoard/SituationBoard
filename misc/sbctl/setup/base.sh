@@ -61,6 +61,8 @@ setup_install_base() {
     apt-get upgrade --yes > /dev/null
     check_result_done $?
   else
+    apt-get update --yes > /dev/null
+    #check_result $?
     echo_ok "Omitted."
   fi
 
