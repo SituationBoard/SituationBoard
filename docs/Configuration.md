@@ -324,6 +324,8 @@ It is configured in the ```[action:toggle_output]``` section and has the followi
 | **active_high**              | Determines whether the IO pin is active high                                                                                                                      | True                          |
 | reset_on_startup             | Determines whether the IO pin level (high/low) is reset during startup                                                                                            | True                          |
 | **active_duration**          | Duration the IO pin is activated in seconds (0 = forever)                                                                                                         | 15 * 60 seconds (15 minutes)  |
+| **max_alarm_age**            | Maximum age of the alarm to be handled (0 = any age)                                                                                                              | 5 * 60 seconds (5 minutes)    |
+| **handle_alarm_updates**     | Determines whether alarm updates are also handled                                                                                                                 | False                         |
 | toggle_valid                 | Toggle for valid alarm messages                                                                                                                                   | True                          |
 | toggle_invalid               | Toggle for invalid alarm messages                                                                                                                                 | True                          |
 | toggle_binary                | Toggle for binary alarm messages                                                                                                                                  | True                          |
@@ -342,6 +344,8 @@ It is configured in the ```[action:toggle_outlet]``` section and has the followi
 | inverted                     | Determines whether the outlet state (on/off) is inverted                                                                                                          | False                         |
 | reset_on_startup             | Determines whether the outlet state (on/off) is reset during startup                                                                                              | True                          |
 | **active_duration**          | Duration the outlet is activated in seconds (0 = forever)                                                                                                         | 15 * 60 seconds (15 minutes)  |
+| **max_alarm_age**            | Maximum age of the alarm to be handled (0 = any age)                                                                                                              | 5 * 60 seconds (5 minutes)    |
+| **handle_alarm_updates**     | Determines whether alarm updates are also handled                                                                                                                 | False                         |
 | toggle_valid                 | Toggle for valid alarm messages                                                                                                                                   | True                          |
 | toggle_invalid               | Toggle for invalid alarm messages                                                                                                                                 | True                          |
 | toggle_binary                | Toggle for binary alarm messages                                                                                                                                  | True                          |
@@ -356,6 +360,8 @@ It is configured in the ```[action:activate_screen]``` section and has the follo
 | Setting                      | Description                                                                                                                                                       | Default Value                 |
 |------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------|
 | **active_duration**          | Duration the screen should be active after an alarm event in seconds (0 = forever)                                                                                | 0 (forever)                   |
+| **max_alarm_age**            | Maximum age of the alarm to be handled (0 = any age)                                                                                                              | 5 * 60 seconds (5 minutes)    |
+| **handle_alarm_updates**     | Determines whether alarm updates are also handled                                                                                                                 | False                         |
 
 ### Write File Action (for automated testing)
 The optional ```write_file``` action writes detected alarms to a specified file.
