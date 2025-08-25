@@ -80,6 +80,9 @@ class Test_CSV:
         aeAdded.alarmTimestamp = ts
         aeAdded.locationLatitude = 1.12
         aeAdded.locationLongitude = -13.2
+        aeAdded.flags = AlarmEvent.FLAGS_VALID
+        aeAdded.source = AlarmEvent.SOURCE_DUMMY
+        aeAdded.raw = "{\n\"test\": \"test;:test;:test\"\n}"
         eventID = d.addEvent(aeAdded)
 
         # export data to CSV
@@ -104,7 +107,18 @@ class Test_CSV:
         assert(aeLoaded is not None)
 
         # compare event data
+        assert(aeAdded.timestamp == aeLoaded.timestamp)
+        assert(aeAdded.event == aeLoaded.event)
+        assert(aeAdded.eventDetails == aeLoaded.eventDetails)
+        assert(aeAdded.location == aeLoaded.location)
+        assert(aeAdded.locationDetails == aeLoaded.locationDetails)
         assert(aeAdded.comment == aeLoaded.comment)
+        assert(aeAdded.alarmTimestamp == aeLoaded.alarmTimestamp)
+        assert(aeAdded.locationLatitude == aeLoaded.locationLatitude)
+        assert(aeAdded.locationLongitude == aeLoaded.locationLongitude)
+        assert(aeAdded.flags == aeLoaded.flags)
+        assert(aeAdded.source == aeLoaded.source)
+        assert(aeAdded.raw == aeLoaded.raw)
 
         # close database
         d.close()

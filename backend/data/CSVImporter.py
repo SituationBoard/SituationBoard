@@ -31,8 +31,8 @@ class CSVImporter(CSVCommon):
             with open(filename, 'r') as f:
                 reader = csv.reader(f, delimiter=";", quotechar="\"", doublequote=True)
                 alarmList = list(reader)
-        except Exception:
-            self.fatalContinue(f"Could not read CSV file ({filename})")
+        except Exception as e:
+            self.fatalContinue(f"Could not read CSV file {filename} ({e})")
             return 1
 
         importedCount = 0
