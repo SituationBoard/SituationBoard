@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import datetime
+
 from typing import Dict, Any
 
 class SourceEvent:
@@ -40,18 +42,52 @@ class SourceEvent:
         self.sender    = ""
         self.raw       = ""
         self.timestamp = ""
+        self.wasHandledOnce = False # Will be set to True once all handlers were provided with the AlarmEvent for the first time
 
     def copyDataFrom(self, sourceEvent: "SourceEvent") -> None:
         self.source    = sourceEvent.source
         self.sender    = sourceEvent.sender
         self.raw       = sourceEvent.raw
         self.timestamp = sourceEvent.timestamp
+        self.wasHandledOnce = sourceEvent.wasHandledOnce
+
+    def markAsHandled(self) -> None:
+        """This method is called after every Action handler was provided with
+        the SourceEvent to handle it (for the first time)."""
+        self.wasHandledOnce = True
+
+    @property
+    def updated(self) -> bool:
+        """This allows Actions to identify whether an event is actually new or
+        whether it was only updated by the SourceDriver and was handled before."""
+        return self.wasHandledOnce
+
+    def isOutdated(self, maxAgeInSeconds: int) -> bool:
+        """This method allows Actions to check whether an event is recent and should actually trigger an action
+        or whether it is outdated/delayed and should possibly be ignored based on a maximum age."""
+        if maxAgeInSeconds <= 0:
+            return False
+
+        if self.timestamp == "":
+            return False
+
+        try:
+            eventTS = datetime.datetime.strptime(self.timestamp, SourceEvent.TIMESTAMP_FORMAT)
+        except Exception:
+            return False
+
+        nowTS = datetime.datetime.now()
+        age = nowTS - eventTS
+        if age.total_seconds() > maxAgeInSeconds:
+            return True
+
+        return False
+
+    def toJSON(self) -> Dict[str, Any]:
+        return self.__dict__
 
     def __str__(self) -> str:
         return f"SourceEvent Source={self.source}"
 
     def __repr__(self) -> str:
         return f"SourceEvent Source={self.source}"
-
-    def toJSON(self) -> Dict[str, Any]:
-        return self.__dict__
