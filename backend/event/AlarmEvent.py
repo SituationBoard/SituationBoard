@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import datetime
+
 from backend.event.SourceEvent import SourceEvent
 
 class AlarmEvent(SourceEvent):
@@ -73,3 +75,24 @@ class AlarmEvent(SourceEvent):
 
     def __repr__(self) -> str:
         return f"AlarmEvent Event={self.event} EventID={self.eventID}"
+
+    def isOutdated(self, maxAgeInSeconds: int) -> bool:
+        """This method allows Actions to check whether an alarm is recent and should actually trigger an action
+        or whether it is outdated/delayed and should possibly be ignored based on a maximum age."""
+        if maxAgeInSeconds <= 0:
+            return False
+
+        if self.alarmTimestamp == "":
+            return super().isOutdated(maxAgeInSeconds)
+
+        try:
+            alarmTS = datetime.datetime.strptime(self.alarmTimestamp, AlarmEvent.TIMESTAMP_FORMAT)
+        except Exception:
+            return False
+
+        nowTS = datetime.datetime.now()
+        age = nowTS - alarmTS
+        if age.total_seconds() > maxAgeInSeconds:
+            return True
+
+        return False

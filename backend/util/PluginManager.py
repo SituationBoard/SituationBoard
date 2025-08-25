@@ -95,6 +95,8 @@ class PluginManager(Module):
                     sourcePlugin = sourceModule.SourceDriverBinary(instanceName, self.__settings) # no parser required
                 elif source == "divera":
                     lastAlarmEvent = self.__database.getLastEventFromSource(SourceEvent.SOURCE_DIVERA) # retrieve last alarm event from DB
+                    if lastAlarmEvent is not None:
+                        lastAlarmEvent.markAsHandled()
                     sourceModule = importlib.import_module("backend.source.SourceDriverDivera")
                     sourcePlugin = sourceModule.SourceDriverDivera(instanceName, self.__settings, lastAlarmEvent) # provide last alarm event; no parser required
                 elif source == "dummy":
@@ -227,6 +229,7 @@ class PluginManager(Module):
             except Exception as e:
                 self.error(f"{actionHandler}.handleEvent(sourceEvent) caused an unhandled exception", e)
 
+        sourceEvent.markAsHandled()
 
     def handleCyclic(self) -> None:
         """Allows Action plugins to perform housekeeping operations
