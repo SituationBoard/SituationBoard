@@ -72,6 +72,6 @@ class CSVExporter(CSVCommon):
             self.print(f"Exported {exportedCount} event(s) from the DB")
             return 0
 
-        except Exception:
-            self.fatalContinue(f"Could not write CSV file ({filename})")
+        except Exception as e:
+            self.fatalContinue(f"Could not write CSV file {filename} ({e})")
             return 1
