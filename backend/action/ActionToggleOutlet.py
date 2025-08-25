@@ -37,6 +37,8 @@ class ActionToggleOutlet(Action):
         self.__inverted = self.getSettingBoolean("inverted", False)
         self.__resetOnStartup = self.getSettingBoolean("reset_on_startup", True)
         self.__activeDuration = self.getSettingInt("active_duration", 15 * 60) # in seconds; 0 = forever
+        self.__maxAlarmAge = self.getSettingInt("max_alarm_age", 5 * 60) # in seconds; default = 5 minutes; 0 = handle always
+        self.__handleAlarmUpdates = self.getSettingBoolean("handle_alarm_updates", False)
 
         self.__toggleValid   = self.getSettingBoolean("toggle_valid", True)
         self.__toggleInvalid = self.getSettingBoolean("toggle_invalid", True)
@@ -100,14 +102,25 @@ class ActionToggleOutlet(Action):
 
             if alarmEvent.valid:
                 if not self.__toggleValid:
+                    self.dbgPrint("Ignored alarm event (valid)")
                     return
             elif alarmEvent.invalid:
                 if not self.__toggleInvalid:
+                    self.dbgPrint("Ignored alarm event (invalid)")
                     return
             elif alarmEvent.binary:
                 if not self.__toggleBinary:
+                    self.dbgPrint("Ignored alarm event (binary)")
                     return
             else:
+                return
+
+            if alarmEvent.updated and not self.__handleAlarmUpdates:
+                self.dbgPrint("Ignored alarm event (update)")
+                return
+
+            if alarmEvent.isOutdated(self.__maxAlarmAge):
+                self.dbgPrint("Ignored alarm event (outdated)")
                 return
 
             if self.__activeDuration != 0:

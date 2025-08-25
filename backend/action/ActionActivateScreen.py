@@ -29,10 +29,21 @@ class ActionActivateScreen(Action):
         super().__init__("activate_screen", instanceName, settings)
         self.__displayPowerManager = displayPowerManager
         self.__activeDuration = self.getSettingInt("active_duration", 0) # in seconds; 0 = forever
+        self.__maxAlarmAge = self.getSettingInt("max_alarm_age", 5 * 60) # in seconds; default = 5 minutes; 0 = handle always
+        self.__handleAlarmUpdates = self.getSettingBoolean("handle_alarm_updates", True)
+
         self.__activationTimestamp = 0.0
 
     def handleEvent(self, sourceEvent: SourceEvent) -> None:
         if isinstance(sourceEvent, AlarmEvent):
+            if sourceEvent.updated and not self.__handleAlarmUpdates:
+                self.dbgPrint("Ignored alarm event (update)")
+                return
+
+            if sourceEvent.isOutdated(self.__maxAlarmAge):
+                self.dbgPrint("Ignored alarm event (outdated)")
+                return
+
             if self.__activeDuration != 0:
                 self.__activationTimestamp = time.time()
 
@@ -53,4 +64,4 @@ class ActionActivateScreen(Action):
             if nowTimestamp >= endTimestamp:
                 self.__activationTimestamp = 0
                 self.print("Deactivate screen")
-                self.__displayPowerManager.powerOff()
+                self.__displayPowerManager.powerOff() #TODO: only turn off if it was off before the activation ?!?
