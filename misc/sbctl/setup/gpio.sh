@@ -46,7 +46,7 @@ setup_ask_gpio() {
 
 setup_install_gpio() {
   setup_print_step "Install Python dependencies"
-  sudo -u "$SBUSER" "$SBPIP" install --quiet RPi.GPIO
+  sudo -u "$SBUSER" "$SBPIP" install --quiet rpi-lgpio lgpio
   check_result_done $?
 
   return 0
