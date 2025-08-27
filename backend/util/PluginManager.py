@@ -81,7 +81,12 @@ class PluginManager(Module):
         sources = self.__settings.getBackendSources()
         for sourceIdentifier in sources:
             (source, instanceName) = Plugin.splitPluginIdentifier(sourceIdentifier)
-            self.print(f"Init source plugin {source}")
+
+            if instanceName != "":
+                self.print(f"Init source plugin {source} ({instanceName})")
+            else:
+                self.print(f"Init source plugin {source}")
+
             sourcePlugin: Optional[SourceDriver] = None
 
             try:
@@ -130,7 +135,11 @@ class PluginManager(Module):
         for actionIdentifier in actions:
             (action, instanceName) = Plugin.splitPluginIdentifier(actionIdentifier)
 
-            self.print(f"Init action plugin {action}")
+            if instanceName != "":
+                self.print(f"Init action plugin {action} ({instanceName})")
+            else:
+                self.print(f"Init action plugin {action}")
+
             actionPlugin: Optional[Action] = None
 
             try:
