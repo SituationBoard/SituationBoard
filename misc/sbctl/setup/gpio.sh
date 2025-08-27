@@ -38,7 +38,7 @@
 
 setup_ask_gpio() {
   local FEATURE=$1
-  is_raspbian; IS_RASPBERRY_PI=$?
+  is_raspberry_pi; IS_RASPBERRY_PI=$?
   if ask_yes_no "Install GPIO support (requires Raspberry Pi)?" $IS_RASPBERRY_PI; then # default: $IS_RASPBERRY_PI
     setup_request_feature "$FEATURE"
   fi
