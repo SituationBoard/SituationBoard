@@ -89,9 +89,9 @@ echo "base" >> ".installed"
 ## GPIO Support (requires Raspberry Pi)
 
 ### Install required Python library
-Install the GPIO library for the Raspberry Pi:
+Install the GPIO libraries for the Raspberry Pi:
 ```
-./venv/bin/pip3 install RPi.GPIO
+./venv/bin/pip3 install rpi-lgpio lgpio
 ```
 
 ### Mark GPIO feature as installed
