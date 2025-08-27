@@ -61,7 +61,7 @@ SMS_PIN=${SMS_PIN:-}
 setup_ask_sms() {
   local FEATURE=$1
 
-  if ask_yes_no "Install SMS support (requires a modem)?" $ASK_DEFAULT_YES; then
+  if ask_yes_no "Install SMS support (requires a modem)?" $ASK_DEFAULT_NO; then
     setup_request_feature "$FEATURE"
 
     ask_text "Enter the modem device" $ASK_INPUT_COMPLETE "$SMS_DEFAULT_DEVICE" SMS_DEVICE

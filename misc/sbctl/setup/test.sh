@@ -38,7 +38,7 @@
 
 setup_ask_test() {
   local FEATURE=$1
-  if ask_yes_no "Install test support (for development)?" $ASK_DEFAULT_NO; then # 1 -> default: false
+  if ask_yes_no "Install test support (for development)?" $ASK_DEFAULT_YES; then # 1 -> default: false
     setup_request_feature "$FEATURE"
   fi
 }
