@@ -94,10 +94,10 @@ debug_frontend() {
       xset s 0 # disable screen sleep (blank time)
       xset dpms 0 0 0 # disable screen sleep (dpms)
       unclutter > /dev/null 2>&1 & # hide cursor
-      #chromium-browser --disable-features=TranslateUI --noerrdialogs --kiosk --incognito "$URL" > /dev/null 2>&1 &
-      chromium-browser --disable-features=TranslateUI --noerrdialogs --start-fullscreen --incognito "$URL" > /dev/null 2>&1 &
+      #chromium-browser --noerrdialogs --kiosk --incognito "$URL" > /dev/null 2>&1 &
+      chromium-browser --noerrdialogs --start-fullscreen --incognito "$URL" > /dev/null 2>&1 &
     else
-      chromium-browser --disable-features=TranslateUI "$URL" > /dev/null 2>&1 &
+      chromium-browser "$URL" > /dev/null 2>&1 &
     fi
     return 0
   elif hash google-chrome > /dev/null 2>&1; then
@@ -106,10 +106,10 @@ debug_frontend() {
       xset s 0 # disable screen sleep (blank time)
       xset dpms 0 0 0 # disable screen sleep (dpms)
       unclutter > /dev/null 2>&1 & # hide cursor
-      #google-chrome --disable-features=TranslateUI --noerrdialogs --kiosk --incognito "$URL" > /dev/null 2>&1 &
-      google-chrome --disable-features=TranslateUI --noerrdialogs --start-fullscreen --incognito "$URL" > /dev/null 2>&1 &
+      #google-chrome --noerrdialogs --kiosk --incognito "$URL" > /dev/null 2>&1 &
+      google-chrome --noerrdialogs --start-fullscreen --incognito "$URL" > /dev/null 2>&1 &
     else
-      google-chrome --disable-features=TranslateUI "$URL" > /dev/null 2>&1 &
+      google-chrome "$URL" > /dev/null 2>&1 &
     fi
     return 0
   elif hash firefox > /dev/null 2>&1; then
