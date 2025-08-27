@@ -147,12 +147,17 @@ get_setting() {
   return 1
 }
 
-is_raspbian() {
-  local DISTRIBUTION
-  DISTRIBUTION=$(lsb_release -s -i)
-  if [[ "$DISTRIBUTION" == "Raspbian" ]]; then # Raspbian / Raspberry Pi OS
+is_raspberry_pi() {
+  local MODEL_FILE=/proc/device-tree/model # /sys/firmware/devicetree/base/model
+  if [[ ! -f $MODEL_FILE ]]; then
+    return 1 # FALSE
+  fi
+
+  MODEL=$(tr -d '\0' < $MODEL_FILE)
+  if [[ "$MODEL" =~ ^"Raspberry Pi" ]]; then # some Raspberry Pi (model starts with "Raspberry Pi")
     return 0 # TRUE
   fi
+
   return 1 # FALSE
 }
 
