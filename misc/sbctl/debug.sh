@@ -163,14 +163,8 @@ debug_test_eslint() {
 
 debug_test_shellcheck() {
   echo_bold "Validating sbctl with shellcheck..."
-  if is_raspbian; then
-    # Raspbian uses an old version of shellcheck (v0.5.0 vs. v0.7.0)
-    # that does not support all the features we need
-    echo_error "Warning: This test is not supported on Raspbian yet!"
-  else
-    shellcheck --external-sources --check-sourced --source-path "$SBPATH" "$SBPATH/sbctl"
-    check_result_done $?
-  fi
+  shellcheck --external-sources --check-sourced --source-path "$SBPATH" "$SBPATH/sbctl"
+  check_result_done $?
 }
 
 debug_test_pytest() {
