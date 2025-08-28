@@ -54,6 +54,7 @@ Currently, the following settings are available in the ```[frontend]``` section 
 | map_emergency_layer          | Show emergency objects ("none", "fire", "medical", "all") in the map (currently only supported by OSM)                                                            | "all"                         |
 | **map_home_latitude**        | Latitude location of the fire/emergency station (i.e. start of the journey for map view)                                                                          | 0.0                           |
 | **map_home_longitude**       | Longitude location of the fire/emergency station (i.e. start of the journey for map view)                                                                         | 0.0                           |
+| **map_search_location**      | Determines whether the frontend tries to search the location based on the address if there are no coordinates of the location provided in the alarm event         | False                         |
 | show_splash_screen           | Determines whether a splash screen is shown when the frontend is loaded                                                                                           | True                          |
 
 ## Sources

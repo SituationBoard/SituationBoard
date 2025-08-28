@@ -265,5 +265,8 @@ class Settings(Module):
     def getFrontendMapHomeLongitude(self) -> float:
         return self.getFloat(Settings.SECTION_FRONTEND, "map_home_longitude", 0.0)
 
+    def getFrontendMapSearchLocation(self) -> bool:
+        return self.getBoolean(Settings.SECTION_FRONTEND, "map_search_location", False)
+
     def getFrontendShowSplashScreen(self) -> bool:
         return self.getBoolean(Settings.SECTION_FRONTEND, "show_splash_screen", True)
