@@ -64,7 +64,7 @@ They are activated by adding them to the list of ```sources``` in the ```[backen
 sources = source1,source2,...
 
 # for example:
-sources = dummy,binary,sms
+sources = dummy,binary,sms,divera
 ```
 Each source has its own configuration section:
 ```
@@ -223,7 +223,9 @@ sbctl dsetting
 
 ## Actions
 Actions are triggered by alarm events or on a regular timely manner.
-They are activated by adding them to the list of ```actions``` in the ```[backend]``` section of the configuration:
+The alarm events provided by the sources can be outdated/delayed (e.g. because of temporary connection issues) or just an update of a previous alarm event (e.g. with additional information).
+It is the responsibility of the corresponding Action to handle outdated and updated alarm events in the correct manner.
+Actions are activated by adding them to the list of ```actions``` in the ```[backend]``` section of the configuration:
 ```
 actions = action1,action2,...
 
@@ -256,9 +258,10 @@ key = value
 Actions are triggered in the order they are specified in the list of actions.
 Currently, the following actions are available:
 
-### Search Location Action (should be 1st)
-The ```search_location``` action is responsible to find the location (longitude and latitude) of an alarm event when only the address is known.
-It should always be the first action since it might add location information to the alarm event that is useful for the following actions.
+### Search Location Action (if used, should be 1st)
+The optional ```search_location``` action is responsible to find the location/coordinates (longitude and latitude) of an alarm event when only the address is known.
+It is important to note that the resulting coordinates can be incorrect (e.g. when the specified address is imprecise).
+If used, ```search_location``` should always be the first action since it might add location information to the alarm event that is useful for the following actions.
 It is configured in the ```[action:search_location]``` section and has the following settings:
 
 | Setting                      | Description                                                                                                                                                       | Default Value                 |
