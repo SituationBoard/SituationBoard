@@ -38,6 +38,7 @@ export default class Settings {
         this.mapEmergencyLayer      = "{{tMapEmergencyLayer}}";
         this.mapHomeLatitude        = parseFloat("{{tMapHomeLatitude}}");
         this.mapHomeLongitude       = parseFloat("{{tMapHomeLongitude}}");
+        this.mapSearchLocation      = parseBool("{{tMapSearchLocation}}");
         this.calendarURL            = "{{tCalendarURL}}"; // iCal URL
         this.pageReloadDuration     = parseInt("{{tPageReloadDuration}}"); // in seconds - necessary only when using Google Maps (because of numerous known internal memory leakage bugs in the Google Maps API)
         this.debug                  = parseBool("{{tDebug}}");

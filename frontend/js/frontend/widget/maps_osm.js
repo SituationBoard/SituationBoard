@@ -89,7 +89,7 @@ export default class MapsOSMWidget extends MapsWidget {
                 // location is already known...
                 //this.log("OSM Shortcut");
                 this.__updateMaps(longitude, latitude);
-            }else{
+            }else if(this.settings.mapSearchLocation){
                 // ask Nominatim Service where this address is...
                 //this.log("OSM Geocoding");
                 $.getJSON('http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + encodeURI(address), (data) => {
@@ -102,6 +102,8 @@ export default class MapsOSMWidget extends MapsWidget {
                 }).fail(() => {
                     this.warn("OSM failed to find address");
                 });
+            }else{
+                this.log("no coordinates and location search disabled");
             }
         }
     }
