@@ -125,7 +125,7 @@ export default class MapsGoogleWidget extends MapsWidget {
                 //this.log("Google Maps Shortcut");
                 this.mapAlarmLocation = new google.maps.LatLng(latitude, longitude);
                 this.__updateMaps();
-            }else{
+            }else if(this.settings.mapSearchLocation){
                 // ask Google Geocoding Service where this address is...
                 //this.log("Google Maps Geocoding");
                 this.mapGeocoder.geocode( {'address': address}, (results, status) => {
@@ -136,6 +136,8 @@ export default class MapsGoogleWidget extends MapsWidget {
                         this.warn("Google Maps failed to find address: " + status);
                     }
                 });
+            }else{
+                this.log("no coordinates and location search disabled");
             }
         }
     }

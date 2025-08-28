@@ -153,6 +153,7 @@ class WebSocket(Module):
                      tMapEmergencyLayer=str(self.settings.getFrontendMapEmergencyLayer()),
                      tMapHomeLatitude=str(self.settings.getFrontendMapHomeLatitude()),
                      tMapHomeLongitude=str(self.settings.getFrontendMapHomeLongitude()),
+                     tMapSearchLocation=str(self.settings.getFrontendMapSearchLocation()).lower(),
                      tShowSplashScreen=str(self.settings.getFrontendShowSplashScreen()).lower())
         return Response(data, mimetype=WebSocket.MIME_JS)
 
