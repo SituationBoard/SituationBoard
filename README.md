@@ -12,13 +12,13 @@ In addition, an alarm can trigger several actions (e.g. sending alarm messages v
 Alarm, Emergency, Operation, Fire, Rescue, Mission, Situation, Incident, Briefing,
 Display, Monitor, Screen, Dashboard, Board, View, Panel, Visualization,
 Einsatz, Lage, Feuerwehr, FW, FFW, THW, Technisches Hilfswerk, Rettungsdienst, Alarmierung, Visualisierung, Anzeige, Bildschirm,
-Alarmmonitor, Einsatzmonitor, Alarmanzeige, Einsatzanzeige, Alarmdisplay, Einsatzdisplay
+Alarmmonitor, Einsatzmonitor, Alarmanzeige, Einsatzanzeige, Alarmdisplay, Einsatzdisplay, Divera 24/7
 
 ### Features
 
 <img align="right" width="128" height="128" src="docs/logo.png">
 
-- supports multiple sources (e.g. SMS and binary sources)
+- supports multiple sources (e.g. SMS, binary sources, and web APIs)
 - alarm view with optional support for maps (showing route and fire hydrants at location)
 - enables forwarding of alarms to external alarm services
 - can trigger a variety of other alarm actions (e.g. turn on lights)
@@ -57,13 +57,13 @@ The credits in form of a list of contributors and used third-party projects can 
 
 ## Hardware Requirements
 - [Raspberry Pi](https://www.raspberrypi.org) or another Linux box
-- Huawei E303 UMTS-Modem (for alarm reception via SMS)
+- Huawei E303 UMTS-Modem (optional, required only for alarm reception via SMS)
 - HDMI TV/Display (with optional [CEC](https://en.wikipedia.org/wiki/Consumer_Electronics_Control) support)
 - Internet access (optional for calendar updates, maps and external alarm services)
 
 ## Software Requirements
 - [Linux](https://de.wikipedia.org/wiki/Linux) (with [systemd](https://en.wikipedia.org/wiki/Systemd) and GUI)
-- [Gammu](https://wammu.eu/gammu/) (SMS/Phone Library)
+- [Gammu](https://wammu.eu/gammu/) (SMS/Phone Library, optional)
 - [Python](https://https://en.wikipedia.org/wiki/Python_(programming_language)) (Version >= 3.7)
   - [Flask](https://en.wikipedia.org/wiki/Flask_(web_framework)) (Webserver)
   - [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/) (Socket IO for Webserver)
@@ -82,7 +82,7 @@ git clone https://github.com/SituationBoard/SituationBoard.git
 cd SituationBoard
 sudo ./sbctl install
 ```
-The automatic setup should work on Debian-based Linux distros (like [Raspbian](https://www.raspbian.org) or [Ubuntu](https://www.ubuntu.com)).
+The automatic setup should work on Debian-based Linux distros (like [Raspbian/Raspberry Pi OS](https://www.raspbian.org) or [Ubuntu](https://www.ubuntu.com)).
 It first asks some questions on required features and then installs all the required dependencies.
 It also makes several adjustments to the system depending on the selected features (e.g. enables autostart of the browser, disables screensaver, ...).
 After the installation, it is necessary to adjust the [configuration](docs/Configuration.md) in the ```situationboard.conf``` file before the first start.

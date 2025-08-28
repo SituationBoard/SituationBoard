@@ -163,13 +163,6 @@ sudo systemctl daemon-reload
 ```
 You can later enable/start the service with ```sudo sbctl enable``` and ```sudo sbctl start``` after the installation is complete.
 
-### Disable Screen Sleep
-Append the content of the ```misc/setup/xorg.conf``` file to the ```/etc/X11/xorg.conf``` file
-to disable screen sleep (and create the file if it does not exist):
-```
-cat misc/setup/xorg.conf | sudo tee -a /etc/X11/xorg.conf
-```
-
 ### Install CEC utils
 Install CEC support to be able to turn displays on in case of an alarm:
 ```
