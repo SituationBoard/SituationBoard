@@ -362,6 +362,12 @@ It is configured in the ```[action:activate_screen]``` section and has the follo
 | **active_duration**          | Duration the screen should be active after an alarm event in seconds (0 = forever)                                                                                | 0 (forever)                   |
 | **max_alarm_age**            | Maximum age of the alarm to be handled (0 = any age)                                                                                                              | 5 * 60 seconds (5 minutes)    |
 | **handle_alarm_updates**     | Determines whether alarm updates are also handled                                                                                                                 | False                         |
+| **cec_device**               | CEC device used (e.g., /dev/cec0 or /dev/cec1); default device is used if none is specified                                                                       | "" (default device)           |
+| screen_device_id             | The logical ID of the CEC device/screen (TV should always be ID 0)                                                                                                | 0 (TV)                        |
+| timeout                      | Timeout used for CEC commands (in seconds)                                                                                                                        | 10 seconds                    |
+| handle_valid                 | Activate screen for valid alarm messages                                                                                                                          | True                          |
+| handle_invalid               | Activate screen for invalid alarm messages                                                                                                                        | True                          |
+| handle_binary                | Activate screen for binary alarm messages                                                                                                                         | True                          |
 
 ### Write File Action (for automated testing)
 The optional ```write_file``` action writes detected alarms to a specified file.

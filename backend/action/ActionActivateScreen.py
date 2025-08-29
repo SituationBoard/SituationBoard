@@ -32,7 +32,45 @@ class ActionActivateScreen(Action):
         self.__maxAlarmAge = self.getSettingInt("max_alarm_age", 5 * 60) # in seconds; default = 5 minutes; 0 = handle always
         self.__handleAlarmUpdates = self.getSettingBoolean("handle_alarm_updates", True)
 
+        self.__handleValid   = self.getSettingBoolean("handle_valid", True)
+        self.__handleInvalid = self.getSettingBoolean("handle_invalid", True)
+        self.__handleBinary  = self.getSettingBoolean("handle_binary", True)
+
+        self.__cecDevice = self.getSettingString("cec_device", "") # use default if empty
+        self.__screenDeviceID = self.getSettingInt("screen_device_id", 0) # TV should always be 0
+        self.__timeout = self.getSettingInt("timeout", 10) # 10 seconds
+
+        if self.isDebug():
+            self.dbgPrint("List of CEC Devices:")
+            self.dbgPrint(self.__displayPowerManager.listCECDevices())
+            self.dbgPrint(f"Device Scan (for cec_device=\"{self.__cecDevice}\"):")
+            self.dbgPrint(self.__displayPowerManager.scanDevices(self.__cecDevice))
+
         self.__activationTimestamp = 0.0
+
+        self.__displayDevice = self.__displayPowerManager.getDevice(self.__cecDevice, self.__screenDeviceID, self.__timeout)
+        if self.__displayDevice.getPowerState() is None:
+            self.error(f"Failed to connect to the screen (cec_device=\"{self.__cecDevice}\", screen_device_id={self.__screenDeviceID})")
+
+    def __activateScreen(self) -> None:
+        isActive = self.__displayDevice.getPowerState()
+        if isActive is None:
+            self.error("Failed to retrieve power state of the screen")
+        elif isActive:
+            if self.__activeDuration != 0 and self.__activationTimestamp != 0:
+                self.dbgPrint("Screen was already active (prior event)")
+                self.__activationTimestamp = time.time() # -> update timestamp to delay deactivation
+            else:
+                self.dbgPrint("Screen was already active (manual)")
+            return
+
+        success = self.__displayDevice.powerOn()
+        if not success:
+            self.error("Failed to activate screen")
+            return
+
+        if self.__activeDuration != 0:
+            self.__activationTimestamp = time.time()
 
     def handleEvent(self, sourceEvent: SourceEvent) -> None:
         if isinstance(sourceEvent, AlarmEvent):
@@ -44,18 +82,26 @@ class ActionActivateScreen(Action):
                 self.dbgPrint("Ignored alarm event (outdated)")
                 return
 
-            if self.__activeDuration != 0:
-                self.__activationTimestamp = time.time()
+            if sourceEvent.valid:
+                if not self.__handleValid:
+                    self.dbgPrint("Ignored alarm event (valid)")
+                    return
+            elif sourceEvent.invalid:
+                if not self.__handleInvalid:
+                    self.dbgPrint("Ignored alarm event (invalid)")
+                    return
+            elif sourceEvent.binary:
+                if not self.__handleBinary:
+                    self.dbgPrint("Ignored alarm event (binary)")
+                    return
+            else:
+                return
 
             self.print("Activate screen (alarm event)")
-            self.__displayPowerManager.powerOn()
-
+            self.__activateScreen()
         elif isinstance(sourceEvent, SettingEvent):
-            if self.__activeDuration != 0:
-                self.__activationTimestamp = time.time()
-
             self.print("Activate screen (setting event)")
-            self.__displayPowerManager.powerOn()
+            self.__activateScreen()
 
     def handleCyclic(self) -> None:
         if self.__activationTimestamp != 0:
@@ -64,4 +110,4 @@ class ActionActivateScreen(Action):
             if nowTimestamp >= endTimestamp:
                 self.__activationTimestamp = 0
                 self.print("Deactivate screen")
-                self.__displayPowerManager.powerOff() #TODO: only turn off if it was off before the activation ?!?
+                self.__displayDevice.powerOff()
