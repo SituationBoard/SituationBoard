@@ -16,59 +16,105 @@
 
 import subprocess
 
+from typing import List, Tuple, Optional
+
 from backend.util.Module import Module
 from backend.util.Settings import Settings
 
 class DisplayPowerManager(Module):
-    """The DisplayPowerManager controls the power state of the attached display (e.g. TV screen) via CEC.
+    """The DisplayPowerManager (together with DisplayDevice) controls the power state of the attached display (e.g. TV screen) via CEC.
     It allows the ActivateScreen action to wake the display from standby mode in case of an alarm event."""
 
-    def __init__(self, settings: Settings, tvDevice: int = 0) -> None:
-        super().__init__("cec", settings = None, debug = False)
-        self.tv = tvDevice # TV should always be 0
-        # self.dbgPrint(self.executeCECCommand("scan"))
+    DEFAULT_TIMEOUT = 10
+    DEFAULT_TIMEOUT_SCAN = 20
+    DEFAULT_TIMEOUT_LIST = 20
+
+    def __init__(self, settings: Settings) -> None:
+        super().__init__("cec", settings = None, debug = settings.getBackendDebug())
+
+    def getDevice(self, cecDevice: str = "", deviceID: int = 0, commandTimeout: int = DEFAULT_TIMEOUT) -> "DisplayDevice":
+        device = DisplayDevice(self, cecDevice, deviceID, commandTimeout)
+        return device
+
+    def scanDevices(self, cecDevice: str = "", commandTimeout: int = DEFAULT_TIMEOUT_SCAN) -> str:
+        _, output = self.executeCECCommand("scan", cecDevice, commandTimeout)
+        return output
+
+    def listCECDevices(self, commandTimeout: int = DEFAULT_TIMEOUT_LIST) -> str:
+        shellCommand = ["cec-client", "--list-devices"]
+        _, output = self.__executeCommand(shellCommand, "", commandTimeout)
+        return output
+
+    def executeCECCommand(self, cecCommand: str, cecDevice: str = "", timeoutSeconds: int = DEFAULT_TIMEOUT) -> Tuple[int, str]:
+        if cecDevice != "":
+            shellCommand = ["cec-client", cecDevice, "--log-level", "1", "--single-command"]
+        else:
+            shellCommand = ["cec-client", "--log-level", "1", "--single-command"]
+        return self.__executeCommand(shellCommand, cecCommand, timeoutSeconds)
+
+    def __executeCommand(self, shellCommand: List[str], stdinCommand: str = "", timeoutSeconds: int = DEFAULT_TIMEOUT) -> Tuple[int, str]:
+        if stdinCommand != "":
+            stdin = stdinCommand + '\n'
+        else:
+            stdin = ""
+
+        if self.isDebug():
+            shellCmd = " ".join(shellCommand)
+            self.dbgPrint(f"Command: {shellCmd}")
+            self.dbgPrint(f"Input:   {stdinCommand}")
+
+        try:
+            with subprocess.Popen(shellCommand, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, stdin=subprocess.PIPE) as process:
+                (stdout, stderr) = process.communicate(stdin.encode(), timeout=timeoutSeconds)
+                _ = stderr # stderr is redirected to stdout
+                output = stdout.decode()
+                exitStatus = process.returncode
+
+                if self.isDebug():
+                    self.dbgPrint(f"Output:  {output}")
+                    self.dbgPrint(f"Result:  {exitStatus}")
+
+                return exitStatus, output
+
+        except Exception as e:
+            self.error(f"Command execution failed ({e})")
+            return 42, f"{e}"
+
+class DisplayDevice:
+    """A DisplayDevice represents a specific display device that is controlled via the DisplayPowerManager and CEC."""
+
+    def __init__(self, displayPowerManager: DisplayPowerManager, cecDevice: str = "", deviceID: int = 0, commandTimeout: int = DisplayPowerManager.DEFAULT_TIMEOUT):
+        self.__dpm = displayPowerManager
+        self.__cecDevice = cecDevice
+        self.__deviceID = deviceID
+        self.__commandTimeout = commandTimeout
+
+    def __executeCECCommand(self, cecCommand: str) -> Tuple[int, str]:
+        fullCommand = f"{cecCommand} {self.__deviceID}"
+        return self.__dpm.executeCECCommand(fullCommand, self.__cecDevice, self.__commandTimeout)
 
     def powerOn(self) -> bool:
-        wasON = self.getState()
-        result = self.executeCECCommand(f"on {self.tv}")
-        self.dbgPrint(f"powerOn: {result}")
-        return wasON
-
-    def powerOff(self) -> bool:
-        wasON = self.getState()
-        result = self.executeCECCommand(f"standby {self.tv}")
-        self.dbgPrint(f"powerOff: {result}")
-        return wasON
-
-    def getState(self) -> bool:
-        result = self.executeCECCommand(f"pow {self.tv}")
-        self.dbgPrint(f"powerState: {result}")
-
-        if "power status: on" in result:
+        result, _ = self.__executeCECCommand("on")
+        if result == 0:
             return True
-
-        if "power status: standby" in result:
-            return False
-
         return False
 
-    def setState(self, state: bool) -> bool:
+    def powerOff(self) -> bool:
+        result, _ = self.__executeCECCommand("standby")
+        if result == 0:
+            return True
+        return False
+
+    def getPowerState(self) -> Optional[bool]:
+        result, output = self.__executeCECCommand("pow")
+        if result == 0:
+            if "power status: on" in output:
+                return True
+            if "power status: standby" in output:
+                return False
+        return None
+
+    def setPowerState(self, state: bool) -> bool:
         if state:
-            # state ON
             return self.powerOn()
-
-        # state OFF
         return self.powerOff()
-
-    def restoreState(self, state: bool) -> bool:
-        return self.setState(state)
-
-    def executeCECCommand(self, cecCommand: str) -> str:
-        shellCommand = ["cec-client", "-d", "1", "-s"]
-
-        stdin = cecCommand + '\n'
-
-        with subprocess.Popen(shellCommand, stdout=subprocess.PIPE, stdin=subprocess.PIPE) as process:
-            (stdout, stderr) = process.communicate(stdin.encode())
-            _ = stderr
-            return stdout.decode()
