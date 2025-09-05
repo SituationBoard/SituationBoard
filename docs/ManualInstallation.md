@@ -34,7 +34,7 @@ cd SituationBoard
 ### Install essential tools
 Install essential Python and JavaScript tools:
 ```
-sudo apt install python3-dev python3-pip python3-venv npm
+sudo apt install python3-dev python3-pip python3-venv npm fonts-noto-color-emoji
 ```
 
 ### Install the sbctl tool

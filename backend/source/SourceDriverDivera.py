@@ -151,6 +151,12 @@ class SourceDriverDivera(SourceDriver):
                 alarmEvent.event = aEventParts[0].strip()
                 alarmEvent.eventDetails = "#" + aEventParts[1].strip()
 
+            priority = data["priority"]
+            if priority:
+                pass # alarmEvent.event = alarmEvent.event + " (Prio)"
+            else:
+                alarmEvent.event = alarmEvent.event + " (keine Prio)"
+
             # split address field into location and locationDetails
             aLocationComplete = data["address"]
             aLocationStripped = aLocationComplete.strip(string.whitespace + ",")
@@ -172,15 +178,18 @@ class SourceDriverDivera(SourceDriver):
             # create line with crew responses and append it to the comment field
             crewResponses = ""
             if self.__showCrewResponses:
-                priority = data["priority"]
                 readCount = data["count_read"]
                 recipientCount = data["count_recipients"]
                 respCountFast = 0 if self.__responseIDFast not in data["ucr_answeredcount"] else data["ucr_answeredcount"][self.__responseIDFast]
                 respCountSlow = 0 if self.__responseIDSlow not in data["ucr_answeredcount"] else data["ucr_answeredcount"][self.__responseIDSlow]
                 respCountNA = 0 if self.__responseIDNA not in data["ucr_answeredcount"] else data["ucr_answeredcount"][self.__responseIDNA]
-                crewResponses = f"{readCount}/{recipientCount} >> fast: {respCountFast} – slow: {respCountSlow} – n/a: {respCountNA}"
-                if priority:
-                    crewResponses = "PRIO " + crewResponses
+                # priority = data["priority"]
+                # crewResponses = f"{readCount}/{recipientCount} >> fast: {respCountFast} – slow: {respCountSlow} – n/a: {respCountNA}"
+                # if priority:
+                #     crewResponses = "PRIO " + crewResponses
+                SPACE = "    "
+                crewResponses = f"✅ {respCountFast}{SPACE}⏳ {respCountSlow}{SPACE}❌ {respCountNA}{SPACE}👁️ {readCount}/{recipientCount}"
+
 
             if description != "" and crewResponses != "":
                 alarmEvent.comment = f"{description}\n\n{crewResponses}"

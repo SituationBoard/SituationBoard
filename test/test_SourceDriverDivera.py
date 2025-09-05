@@ -91,11 +91,13 @@ class Test_SourceDriverDivera:
             self.__checkAlarmEventCommon(e, DiveraMockAPI.ALARM_0_UPDATED)
             assert(e is eOrig)
             assert(e.eventID != AlarmEvent.NO_ID)
-            assert(e.comment == "Lager, BMA hat ausgelöst\n\nPRIO 16/28 >> fast: 5 – slow: 0 – n/a: 7")
+            # assert(e.comment == "Lager, BMA hat ausgelöst\n\nPRIO 16/28 >> fast: 5 – slow: 0 – n/a: 7")
+            assert(e.comment == "Lager, BMA hat ausgelöst\n\n✅ 5    ⏳ 0    ❌ 7    👁️ 16/28")
         else:
             self.__checkAlarmEventCommon(e, DiveraMockAPI.ALARM_0)
             assert(e.eventID == AlarmEvent.NO_ID)
-            assert(e.comment == "Lager, BMA hat ausgelöst\n\nPRIO 14/28 >> fast: 5 – slow: 0 – n/a: 7")
+            # assert(e.comment == "Lager, BMA hat ausgelöst\n\nPRIO 14/28 >> fast: 5 – slow: 0 – n/a: 7")
+            assert(e.comment == "Lager, BMA hat ausgelöst\n\n✅ 5    ⏳ 0    ❌ 7    👁️ 14/28")
 
         assert(e.event == "B BMA")
         assert(e.eventDetails == "#B1710#Meldeanlage#Brandmeldeanlage")
@@ -115,7 +117,8 @@ class Test_SourceDriverDivera:
         assert(e.locationDetails == "Hauptstraße 112")
         assert(e.locationLatitude == 0)
         assert(e.locationLongitude == 0)
-        assert(e.comment == "Probealarm über DIVERA\n\nPRIO 1/1 >> fast: 0 – slow: 0 – n/a: 1")
+        # assert(e.comment == "Probealarm über DIVERA\n\nPRIO 1/1 >> fast: 0 – slow: 0 – n/a: 1")
+        assert(e.comment == "Probealarm über DIVERA\n\n✅ 0    ⏳ 0    ❌ 1    👁️ 1/1")
         self.__checkAlarmTimestamp(e, "2025-08-09 11:30:18")
 
     def __checkVehicleStatusCommon(self, e: Any, raw: str, sender: str) -> None:
