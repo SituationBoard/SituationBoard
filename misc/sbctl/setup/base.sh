@@ -67,7 +67,7 @@ setup_install_base() {
   fi
 
   setup_print_step "Install Python and JavaScript tools"
-  apt-get install --yes python3-dev python3-pip python3-venv npm > /dev/null
+  apt-get install --yes python3-dev python3-pip python3-venv npm fonts-noto-color-emoji > /dev/null
   check_result_done $?
 
   setup_print_step "Install sbctl tool"
