@@ -50,10 +50,6 @@ setup_ask_autostart() {
 }
 
 setup_install_autostart() {
-  setup_print_step "Install unclutter"
-  apt-get install --yes unclutter > /dev/null
-  check_result_done $?
-
   setup_print_step "Install CEC utils"
   apt-get install --yes cec-utils > /dev/null
   check_result_done $?

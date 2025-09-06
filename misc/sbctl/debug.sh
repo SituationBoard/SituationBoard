@@ -91,9 +91,6 @@ debug_frontend() {
   if hash chromium-browser > /dev/null 2>&1; then
     if [[ "$MODE" == "fullscreen" ]]; then
       echo "Starting Chromium" >> "$AUTOSTART_LOG"
-      xset s 0 # disable screen sleep (blank time)
-      xset dpms 0 0 0 # disable screen sleep (dpms)
-      unclutter > /dev/null 2>&1 & # hide cursor
       #chromium-browser --noerrdialogs --kiosk --incognito "$URL" > /dev/null 2>&1 &
       chromium-browser --noerrdialogs --start-fullscreen --incognito "$URL" > /dev/null 2>&1 &
     else
@@ -103,9 +100,6 @@ debug_frontend() {
   elif hash google-chrome > /dev/null 2>&1; then
     if [[ "$MODE" == "fullscreen" ]]; then
       echo "Starting Google Chrome" >> "$AUTOSTART_LOG"
-      xset s 0 # disable screen sleep (blank time)
-      xset dpms 0 0 0 # disable screen sleep (dpms)
-      unclutter > /dev/null 2>&1 & # hide cursor
       #google-chrome --noerrdialogs --kiosk --incognito "$URL" > /dev/null 2>&1 &
       google-chrome --noerrdialogs --start-fullscreen --incognito "$URL" > /dev/null 2>&1 &
     else
@@ -115,9 +109,6 @@ debug_frontend() {
   elif hash firefox > /dev/null 2>&1; then
     if [[ "$MODE" == "fullscreen" ]]; then
       echo "Starting Firefox" >> "$AUTOSTART_LOG"
-      xset s 0 # disable screen sleep (blank time)
-      xset dpms 0 0 0 # disable screen sleep (dpms)
-      unclutter > /dev/null 2>&1 & # hide cursor
       firefox --kiosk "$URL" > /dev/null 2>&1 &
     else
       firefox "$URL" > /dev/null 2>&1 &

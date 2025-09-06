@@ -34,9 +34,8 @@ export default class SplashView extends View {
         $('#app_description').fadeIn(1000);
         $('#app_version').fadeIn(1000);
 
-        const footer = $('#splashview');
-        footer.css('cursor', 'pointer');
-        footer.click((event) => {
+        const splashview = $('#splashview');
+        splashview.click((event) => {
             this.hide();
         });
     }

@@ -82,16 +82,18 @@ git clone https://github.com/SituationBoard/SituationBoard.git
 cd SituationBoard
 sudo ./sbctl install
 ```
-The automatic setup should work on Debian-based Linux distros (like [Raspbian/Raspberry Pi OS](https://www.raspbian.org) or [Ubuntu](https://www.ubuntu.com)).
+The automatic setup should work on Debian-based Linux distros (like [Raspberry Pi OS](https://www.raspberrypi.com/software/) or [Ubuntu](https://www.ubuntu.com)).
 It first asks some questions on required features and then installs all the required dependencies.
 It also makes several adjustments to the system depending on the selected features (e.g. enables autostart of the browser, disables screensaver, ...).
 After the installation, it is necessary to adjust the [configuration](docs/Configuration.md) in the ```situationboard.conf``` file before the first start.
 
 In addition to the setup script, there is also a [guide](docs/ManualInstallation.md) on how to install SituationBoard manually.
 
+## Configure OS
 Depending on your needs it might also be useful to enable the SSH daemon
 for remote command line access and the automatic GUI login on startup.
-On Raspbian both these settings can be configured with the command ```sudo raspi-config```.
+In addition, you should probably also make sure that the standby mode (screen blanking) is disabled.
+On Raspberry Pi OS these settings can be configured with the command ```sudo raspi-config```.
 
 ## Getting started
 To interact with the backend server the ```sbctl``` command line tool is used.

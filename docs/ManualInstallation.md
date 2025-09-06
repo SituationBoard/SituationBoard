@@ -1,7 +1,7 @@
 # Manual Installation
 To install SituationBoard you can use the automatic setup functionality provided by the ```sbctl``` tool (as described in [README.md](../README.md)).
 In addition, you can also install SituationBoard manually. Below is a description of the manual installation process.
-It assumes you are using Raspbian (aka Raspberry Pi OS) or another Debian-based Linux distro.
+It assumes you are using Raspberry Pi OS or another Debian-based Linux distro.
 The installation is divided into a general part (base installation) and optional parts
 that are only required when specific features are actually needed:
 
@@ -14,11 +14,12 @@ that are only required when specific features are actually needed:
 
 ## General Setup
 
-### Enable SSH and autologin for the desired user
+### Configure OS
 To allow for remote access to the device you can enable the SSH daemon.
 Additionally, you should make sure that GUI autologin is enabled for the desired user.
 This allows to show SituationBoard automatically after a reboot.
-To enable both options on Raspbian use the tool ```raspi-config```:
+Finally, you should also make sure that the standby mode (screen blanking) is disabled.
+To make these adjustments on Raspberry Pi OS you can use the tool ```raspi-config```:
 ```
 sudo raspi-config
 ```
@@ -167,12 +168,6 @@ You can later enable/start the service with ```sudo sbctl enable``` and ```sudo 
 Install CEC support to be able to turn displays on in case of an alarm:
 ```
 sudo apt install cec-utils
-```
-
-### Setup unclutter to hide the cursor
-Install unclutter by executing the command:
-```
-sudo apt install unclutter
 ```
 
 ### Setup browser autostart
