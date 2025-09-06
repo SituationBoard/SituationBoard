@@ -84,6 +84,9 @@ export default class Frontend {
 
         this.alarmView = new AlarmView(this);
         this.viewManager.registerView(this.alarmView);
+
+        this.idleMouseTimer;
+        this.forceMouseHide = false;
     }
 
     log(message) {
@@ -161,8 +164,25 @@ export default class Frontend {
         this.viewManager.init();
         this.standbyView.show();
 
+        // automatically hide mouse cursor after incativity
+        this.forceMouseHide = false;
+        document.body.style.cursor = "none";
+        document.body.addEventListener("mousemove", () => {
+            if(this.forceMouseHide){
+                return;
+            }
+            document.body.style.cursor = "auto";
+            clearTimeout(this.idleMouseTimer);
+            this.idleMouseTimer = setTimeout(() => {
+                document.body.style.cursor = "none";
+                this.forceMouseHide = true;
+                setTimeout(() => {
+                    this.forceMouseHide = false;
+                }, 200);
+            }, 2000);
+        });
+
         const footer = $('#statusbar');
-        footer.css('cursor', 'pointer');
         footer.click(() => {
             this.splashView.showWithTimeout(30000);
         });
