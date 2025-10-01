@@ -1,5 +1,5 @@
-#image: "python:3.8"
-image: "ubuntu:20.04"
+#image: "python:3.11"
+image: "ubuntu:24.04"
 
 before_script:
   - export DEBIAN_FRONTEND=noninteractive
