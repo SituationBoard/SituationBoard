@@ -1,0 +1,38 @@
+ ----------------------------  EINSATZORT  ----------------------------
+
+ Straße                 : Musterstraße 0
+ Ort                      : 12345 MUSTER-DORF
+ Ortsteil                : Musterhausen
+ Objekt                 : Straba HP Musterhausen
+ Einsatzplan         : 01/02
+ Einsatznummer : B 123456 1110
+
+  ----------------  Einsatzstelle Google Maps GPS -----------------
+
+https://www.google.de/maps/place/51.163375,10.447683
+
+ -------------------------  EINSATZGRUND  --------------------------
+
+ Schlagwort   :  B - Mülleimer oder Papierkorb
+ Stichwort      : B 1 /  /  /
+
+ --------------------------  EINSATZMITTEL --------------------------
+
+ MD 10 (S3:  Uhr)
+ MD 3/23 (S3:  Uhr)
+ MD 03 01 Abt. Vollalarm (S3:  Uhr)
+
+ ---------------------------  BEMERKUNG  ---------------------------
+
+ Brennender Papierkorb #
+
+
+
+-------------------- Alarmmail der ILS Karlsruhe -------------------
+
+ Absender : ILS KARLSRUHE
+ Tel             : 0123/456789
+ Fax            : 0123/45678-1234
+ Mail           : muster@mustermail.test
+
+ ----------------------------  ENDE MAIL   ----------------------------
